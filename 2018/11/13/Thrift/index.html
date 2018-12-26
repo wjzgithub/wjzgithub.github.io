@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://yoursite.com/img/1542090048523.png">
 <meta property="og:image" content="http://yoursite.com/img/1542090416608.png">
 <meta property="og:image" content="http://yoursite.com/img/1542090542548.png">
-<meta property="og:updated_time" content="2018-11-13T08:37:04.795Z">
+<meta property="og:updated_time" content="2018-12-26T12:52:03.978Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我的博客">
 <meta name="twitter:description" content="Thrift什么是Thrift?​    thrift是一种c/s的架构体系.在最上层是用户自行实现的业务逻辑代码.第二层是由thrift编译器自动生成的代码，主要用于结构化数据的解析，发送和接收。TServer主要任务是高效的接受客户端请求，并将请求转发给Processor处理。Processor负责对客户端的请求做出响应，包括RPC请求转发，调用参数解析和用户逻辑调用，返回值写回等处理。从TP">
@@ -167,6 +167,7 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="Thrift"><a href="#Thrift" class="headerlink" title="Thrift"></a>Thrift</h1><h3 id="什么是Thrift"><a href="#什么是Thrift" class="headerlink" title="什么是Thrift?"></a>什么是Thrift?</h3><p>​    thrift是一种c/s的架构体系.在最上层是用户自行实现的业务逻辑代码.第二层是由thrift编译器自动生成的代码，主要用于结构化数据的解析，发送和接收。<strong>TServer</strong>主要任务是高效的接受客户端请求，并将请求转发给<strong>Processor</strong>处理。<strong>Processor</strong>负责对客户端的请求做出响应，包括RPC请求转发，调用参数解析和用户逻辑调用，返回值写回等处理。从<strong>TProtocol</strong>以下部分是thirft的传输协议和底层I/O通信。<strong>TProtocol</strong>是用于数据类型解析的，将结构化数据转化为字节流给<strong>Transport</strong>进行传输。<strong>Transport</strong>是与底层数据传输密切相关的传输层，负责以字节流方式接收和发送消息体，不关注是什么数据类型。底层IO负责实际的数据传输，包括socket、文件和压缩数据流等。</p>
+<a id="more"></a>
 <p><img src="\img\1542086090946.png" alt="Alt text"></p>
 <h3 id="Thrift工作原理"><a href="#Thrift工作原理" class="headerlink" title="Thrift工作原理"></a>Thrift工作原理</h3><h5 id="普通的本地调用函数过程"><a href="#普通的本地调用函数过程" class="headerlink" title="普通的本地调用函数过程"></a>普通的本地调用函数过程</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public void caller() &#123;</span><br><span class="line">    String param1 = &quot;my String 1&quot;;</span><br><span class="line">    String param2 = &quot;my String 2&quot;;</span><br><span class="line">    String res = getStr(param1, param2);</span><br><span class="line">    System.out.println(&quot;res = &quot; + res);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private String getStr(String str1, String str2) &#123;</span><br><span class="line">    return str1 + &quot;, &quot; + str2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h5 id="Thrift的RPC调用过程"><a href="#Thrift的RPC调用过程" class="headerlink" title="Thrift的RPC调用过程"></a>Thrift的RPC调用过程</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">private TSocket trans_ep;</span><br><span class="line">private TBinaryProtocol protocol;</span><br><span class="line">private IFaaService.Client rawClient;</span><br><span class="line"></span><br><span class="line">protected IFaaServiceThriftClient(String ip, int port) throws TException &#123;</span><br><span class="line">	trans_ep = new TSocket(ip, port);</span><br><span class="line">    trans_ep.setTimeout(6000);</span><br><span class="line">    protocol = new TBinaryProtocol(trans_ep);</span><br><span class="line">    rawClient = new IFaaService.Client(protocol);</span><br><span class="line">    recClient = ReconnectingThriftClient.wrap(rawClient, IFaaService.Iface.class);</span><br><span class="line">    recClient = rawClient;</span><br><span class="line">    LOG.info(&quot;TSocket isOpen?&quot; + trans_ep.isOpen());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public synchronized int iface_engine_ioctrl(int type, long para0, long para1, long 		para2, long para3) &#123;</span><br><span class="line">    LOG.info(&quot;iface_engine_ioctrl begin!&quot;);</span><br><span class="line">    int result = -1;</span><br><span class="line">    try &#123;</span><br><span class="line">        if (!trans_ep.isOpen()) &#123;</span><br><span class="line">        	trans_ep.open();</span><br><span class="line">    	&#125;</span><br><span class="line">    	result = recClient.iface_engin_ioctrl(type, para0, para1, para2, para3);</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">    	</span><br><span class="line">    &#125;</span><br><span class="line">    LOG.info(&quot;iface_engine_ioctrl end!&quot;);</span><br><span class="line">    if (trans_ep.isOpen()) &#123;</span><br><span class="line">    	trans_ep.close();</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -339,6 +340,20 @@
 </article>
 
   
+<nav id="article-nav">
+  
+    <a href="/2018/12/26/kafka安装/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">

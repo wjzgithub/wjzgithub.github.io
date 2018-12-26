@@ -152,94 +152,66 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-kafka安装" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="kafka安装"><a href="#kafka安装" class="headerlink" title="kafka安装"></a>kafka安装</h3><h4 id="Linux上安装jdk1-8"><a href="#Linux上安装jdk1-8" class="headerlink" title="Linux上安装jdk1.8"></a>Linux上安装jdk1.8</h4><p><strong>下载jdk linux版本</strong></p>
+<p><a href="https://pan.baidu.com/s/1hqKKL3e" target="_blank" rel="noopener">https://pan.baidu.com/s/1hqKKL3e</a></p>
+        
+          <a class="article-more-a" href="/2018/12/26/kafka安装/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/12/26/kafka安装/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Thrift" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
     <div class="article-entry" itemprop="articleBody">
       
         <h1 id="Thrift"><a href="#Thrift" class="headerlink" title="Thrift"></a>Thrift</h1><h3 id="什么是Thrift"><a href="#什么是Thrift" class="headerlink" title="什么是Thrift?"></a>什么是Thrift?</h3><p>​    thrift是一种c/s的架构体系.在最上层是用户自行实现的业务逻辑代码.第二层是由thrift编译器自动生成的代码，主要用于结构化数据的解析，发送和接收。<strong>TServer</strong>主要任务是高效的接受客户端请求，并将请求转发给<strong>Processor</strong>处理。<strong>Processor</strong>负责对客户端的请求做出响应，包括RPC请求转发，调用参数解析和用户逻辑调用，返回值写回等处理。从<strong>TProtocol</strong>以下部分是thirft的传输协议和底层I/O通信。<strong>TProtocol</strong>是用于数据类型解析的，将结构化数据转化为字节流给<strong>Transport</strong>进行传输。<strong>Transport</strong>是与底层数据传输密切相关的传输层，负责以字节流方式接收和发送消息体，不关注是什么数据类型。底层IO负责实际的数据传输，包括socket、文件和压缩数据流等。</p>
-<p><img src="\img\1542086090946.png" alt="Alt text"></p>
-<h3 id="Thrift工作原理"><a href="#Thrift工作原理" class="headerlink" title="Thrift工作原理"></a>Thrift工作原理</h3><h5 id="普通的本地调用函数过程"><a href="#普通的本地调用函数过程" class="headerlink" title="普通的本地调用函数过程"></a>普通的本地调用函数过程</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public void caller() &#123;</span><br><span class="line">    String param1 = &quot;my String 1&quot;;</span><br><span class="line">    String param2 = &quot;my String 2&quot;;</span><br><span class="line">    String res = getStr(param1, param2);</span><br><span class="line">    System.out.println(&quot;res = &quot; + res);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">private String getStr(String str1, String str2) &#123;</span><br><span class="line">    return str1 + &quot;, &quot; + str2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="Thrift的RPC调用过程"><a href="#Thrift的RPC调用过程" class="headerlink" title="Thrift的RPC调用过程"></a>Thrift的RPC调用过程</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">private TSocket trans_ep;</span><br><span class="line">private TBinaryProtocol protocol;</span><br><span class="line">private IFaaService.Client rawClient;</span><br><span class="line"></span><br><span class="line">protected IFaaServiceThriftClient(String ip, int port) throws TException &#123;</span><br><span class="line">	trans_ep = new TSocket(ip, port);</span><br><span class="line">    trans_ep.setTimeout(6000);</span><br><span class="line">    protocol = new TBinaryProtocol(trans_ep);</span><br><span class="line">    rawClient = new IFaaService.Client(protocol);</span><br><span class="line">    recClient = ReconnectingThriftClient.wrap(rawClient, IFaaService.Iface.class);</span><br><span class="line">    recClient = rawClient;</span><br><span class="line">    LOG.info(&quot;TSocket isOpen?&quot; + trans_ep.isOpen());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public synchronized int iface_engine_ioctrl(int type, long para0, long para1, long 		para2, long para3) &#123;</span><br><span class="line">    LOG.info(&quot;iface_engine_ioctrl begin!&quot;);</span><br><span class="line">    int result = -1;</span><br><span class="line">    try &#123;</span><br><span class="line">        if (!trans_ep.isOpen()) &#123;</span><br><span class="line">        	trans_ep.open();</span><br><span class="line">    	&#125;</span><br><span class="line">    	result = recClient.iface_engin_ioctrl(type, para0, para1, para2, para3);</span><br><span class="line">    &#125; catch (Exception e) &#123;</span><br><span class="line">    	</span><br><span class="line">    &#125;</span><br><span class="line">    LOG.info(&quot;iface_engine_ioctrl end!&quot;);</span><br><span class="line">    if (trans_ep.isOpen()) &#123;</span><br><span class="line">    	trans_ep.close();</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="Thrift框架远程调用过程"><a href="#Thrift框架远程调用过程" class="headerlink" title="Thrift框架远程调用过程"></a>Thrift框架远程调用过程</h3><ul>
-<li>通过IDL定义一个接口的thrift文件，然后通过thrift的多语言编译功能，将接口定义的thrift文件翻译成对应的语言版本的接口文件；</li>
-<li>Thrift生成的特定语言的接口文件中包括客户端部分和服务器部分；</li>
-<li>客户端通过接口文件中的客户端部分生成一个Client对象，这个客户端对象中包含所有接口函数的存根实现，然后用户代码就可以通过这个Client对象来调用thrift文件中的那些接口函数了，但是，客户端调用接口函数时实际上调用的是接口函数的本地存根实现；</li>
-<li>接口函数的存根实现将调用请求发送给thrift服务器端，然后thrift服务器根据调用的函数名和函数参数，调用实际的实现函数来完成具体的操作</li>
-<li>Thrift服务器在完成处理之后，将函数的返回值发送给调用的Client对象；</li>
-<li>Thrift的Client对象将函数的返回值再交付给用户的调用函数。</li>
-</ul>
-<h3 id="Thrift源码分析"><a href="#Thrift源码分析" class="headerlink" title="Thrift源码分析"></a>Thrift源码分析</h3><ul>
-<li><p>异步客户端类AsyncClient和异步接口AsyncIface</p>
-</li>
-<li><p>同步客户端类Client和同步接口Iface</p>
-<p>​    Client类继承自TServiceClient，并实现了同步接口Iface；</p>
-<p>​    Iface就是根据thrift文件中所定义的接口函数所生成；Thrift的服务器端程序要实现接口Iface ；</p>
-<p>​    Client类是在开发Thrift的客户端程序时使用，是Iface的客户端存根实现。</p>
-</li>
-<li><p>Processor类</p>
-<p> ​    该类主要是开发Thrift服务器程序的时候使用，该类内部定义了一个map，它保存了所有函数名到函数对象的映射，一旦Thrift接到一个函数调用请求，就从该map中根据函数名字找到该函数的函数对象，然后执行它；</p>
-</li>
-<li><p>参数类</p>
-</li>
-</ul>
-<p>​    为每个接口函数定义一个参数类，例如：为接口iface_engin_ioctrl产生一个参数类：iface_engin_ioctrl_args，一般情况下，接口函数参数类的命名方式为：接口函数名_args;</p>
-<ul>
-<li>返回值类</li>
-</ul>
-<p>​        每个接口函数定义了一个返回值类，例如：为接口iface_engin_ioctr产生一个返回值类：iface_engin_ioctrl_result，一般情况下，接口函数返回值类的命名方式为：接口函数名_result;</p>
-<h3 id="深目Thrift项目流程"><a href="#深目Thrift项目流程" class="headerlink" title="深目Thrift项目流程"></a>深目Thrift项目流程</h3><h5 id="首先获取所有中心服务器"><a href="#首先获取所有中心服务器" class="headerlink" title="首先获取所有中心服务器"></a>首先获取所有中心服务器</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;IFaaServiceThriftClient&gt; clientList = iFaceSdkServiceItf.getCenterServerOrAllTarget();</span><br></pre></td></tr></table></figure>
-<h5 id="然后对每一个引擎服务器操作更新"><a href="#然后对每一个引擎服务器操作更新" class="headerlink" title="然后对每一个引擎服务器操作更新"></a>然后对每一个引擎服务器操作更新</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">for (IFaaServiceThriftClient client : clientList) &#123;</span><br><span class="line">	client.iface_engine_ioctrl(EEnginIoctrlType.ENGIN_IOCTRL_IOCTRL.getValue(), 	     EParamIoctrlType.PARAM_IOCTRL_BLACKLIST.getValue(), EBListIoctrlType.BLIST_IOCTRL_BLACK_PERSON_UPDATE.getValue(), personId, personId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h5 id="IFaaServiceThriftClient封装服务器IP和端口，打开socket连接"><a href="#IFaaServiceThriftClient封装服务器IP和端口，打开socket连接" class="headerlink" title="IFaaServiceThriftClient封装服务器IP和端口，打开socket连接"></a>IFaaServiceThriftClient封装服务器IP和端口，打开socket连接</h5><p><img src="\img\1542089763688.png" alt="Alt text"></p>
-<h5 id="调用IFaaService方法"><a href="#调用IFaaService方法" class="headerlink" title="调用IFaaService方法"></a>调用IFaaService方法</h5><p><img src="\img\1542089943659.png" alt="1542089943659"></p>
-<h5 id="IFaaService中调用存根对象的函数send-iface-engin-ioctrl"><a href="#IFaaService中调用存根对象的函数send-iface-engin-ioctrl" class="headerlink" title="IFaaService中调用存根对象的函数send_iface_engin_ioctrl"></a>IFaaService中调用存根对象的函数send_iface_engin_ioctrl</h5><p><img src="\img\1542090048523.png" alt="Alt text"></p>
-<h5 id="包装参数类"><a href="#包装参数类" class="headerlink" title="包装参数类"></a>包装参数类</h5><p><img src="\img\1542090416608.png" alt="1542090416608"></p>
-<p><img src="\img\1542090542548.png" alt="1542090542548"></p>
-<p>​    sendBase函数，存根类Client继承自基类TServiceClient，sendBase函数即是在TServiceClient类中实现的，它的主要功能是调用协议类将调用的函数名和参数发送给Thrift服务器：</p>
-<p>​    receiveBase，在该函数中，首先通过协议层读取消息的首部，然后由针对recv_iface_engin_ioctrl生成的返回值类iface_engin_ioctrl_result读取返回结果的内容；最后由协议层对象结束本次消息读取操作；</p>
-<h3 id="引擎方法"><a href="#引擎方法" class="headerlink" title="引擎方法"></a>引擎方法</h3><h5 id="布控人员操作（client是IFaaServiceThriftClient类型）"><a href="#布控人员操作（client是IFaaServiceThriftClient类型）" class="headerlink" title="布控人员操作（client是IFaaServiceThriftClient类型）"></a>布控人员操作（client是IFaaServiceThriftClient类型）</h5><p>client.iface_engine_ioctrl(EEnginIoctrlType.<strong>ENGIN_IOCTRL_IOCTRL</strong>.getValue(), EParamIoctrlType.<strong>PARAM_IOCTRL_BLACKLIST</strong>.getValue(),                        EBListIoctrlType.<strong>BLIST_IOCTRL_BLACK_PERSON_UPDATE</strong>.getValue(), 0, 0);</p>
-<h6 id="参数："><a href="#参数：" class="headerlink" title="参数："></a>参数：</h6><p>第一个是驱动操作：引擎操作<strong>ENGIN_IOCTRL_IOCTRL</strong>；</p>
-<p>第二个是类型：人员布控<strong>PARAM_IOCTRL_BLACKLIST</strong>；</p>
-<p>第三个是引擎操作：通知引擎开启或取消布控<strong>BLIST_IOCTRL_BLACK_PERSON_UPDATE</strong>；</p>
-<p>第四个是布控人员最小编号，第五个是布控人员最大编号。</p>
-<p>布控时通知引擎重新获取布控信息（包括摄像头和区域以及是否开启布控、布控时间等等信息）</p>
-<p>返回结果：</p>
-<p>​    成功：0</p>
-<p>​    失败：iface_engin_ioctrl failed: unknown result</p>
-<h5 id="布控摄像头操作（client是IFaaServiceThriftClient类型）"><a href="#布控摄像头操作（client是IFaaServiceThriftClient类型）" class="headerlink" title="布控摄像头操作（client是IFaaServiceThriftClient类型）"></a>布控摄像头操作（client是IFaaServiceThriftClient类型）</h5><p>client.iface_engine_ioctrl(EEnginIoctrlType.<strong>ENGIN_IOCTRL_IOCTRL</strong>.getValue(), EParamIoctrlType.<strong>PARAM_IOCTRL_BLACKLIST</strong>.getValue(),<br>EBListIoctrlType.<strong>BLIST_IOCTRL_CAMERA_UPDATE</strong>.getValue(), SourceTypes.<strong>CAMERA</strong>.getValue(), cId);</p>
-<h6 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h6><p>第一个是驱动操作：<strong>引擎驱动开启ENGIN_IOCTRL_IOCTRL</strong>；</p>
-<p>第二个是类型：黑名单人员布控<strong>PARAM_IOCTRL_BLACKLIST</strong>；</p>
-<p>第三个是引擎操作：<strong>摄像头开启引擎BLIST_IOCTRL_CAMERA_UPDATE</strong>；</p>
-<p>第四个是摄像头类型，第五个是摄像头编号。</p>
-<p>返回结果：</p>
-<p>​    成功：0</p>
-<p>​    失败：iface_engin_ioctrl failed: unknown result</p>
-<h5 id="布控区域操作（client是IFaaServiceThriftClient类型）"><a href="#布控区域操作（client是IFaaServiceThriftClient类型）" class="headerlink" title="布控区域操作（client是IFaaServiceThriftClient类型）"></a>布控区域操作（client是IFaaServiceThriftClient类型）</h5><p>client.iface_engine_ioctrl(EEnginIoctrlType.<strong>ENGIN_IOCTRL_IOCTRL.</strong>getValue(), EParamIoctrlType.<strong>PARAM_IOCTRL_BLACKLIST.</strong>getValue(),<br>EBListIoctrlType.<strong>BLIST_IOCTRL_AREA_UPDATE.</strong>getValue(), aId, 0);</p>
-<h6 id="参数-1"><a href="#参数-1" class="headerlink" title="参数"></a>参数</h6><p>第一个是驱动操作：<strong>引擎驱动开启ENGIN_IOCTRL_IOCTRL</strong>；</p>
-<p>第二个是类型：黑名单人员布控<strong>PARAM_IOCTRL_BLACKLIST</strong>；</p>
-<p>第三个是引擎操作：<strong>区域开启引擎BLIST_IOCTRL_AREA_UPDATE</strong>；</p>
-<p>第四个是区域编号。</p>
-<p>返回结果：</p>
-<p>​    成功：0</p>
-<p>​    失败：iface_engin_ioctrl failed: unknown result</p>
-<h5 id="提取图片（ifaceSdkTarget是IFaceSdkTarget类型）"><a href="#提取图片（ifaceSdkTarget是IFaceSdkTarget类型）" class="headerlink" title="提取图片（ifaceSdkTarget是IFaceSdkTarget类型）"></a>提取图片（ifaceSdkTarget是IFaceSdkTarget类型）</h5><p>List&lt;T_IF_FACERECT&gt; faceList = null;</p>
-<p>faceList = ifaceSdkTarget.image_detect_extract(imageInfo.getUri(),<br>imageInfo.getId())</p>
-<p>返回结果</p>
-<p>​    成功：返回人脸位置、人脸数量等信息</p>
-<p>​    失败：image_detect_extract failed: unknown result</p>
-<h5 id="提取特征值"><a href="#提取特征值" class="headerlink" title="提取特征值"></a>提取特征值</h5><p>blackDetailService.updateFaceFeature(blackDetail)；</p>
-<p>List&lt;T_IF_FACERECT&gt; faceRectFeatures = ifaceSdkTarget.processFaceDetectExtract(imageDataIsNotNull ? imageUrl : blackDetail.getImageData(), blackDetail.getId(), E_FACE_EXTRACT_TYPE.FACE_EXT_TYPE_BLACKDETAIL.getValue());</p>
-<p>返回结果：</p>
-<p>​    成功：返回人脸位置、人脸数量等信息</p>
-<p>​    失败：face_detect_extract failed: unknown result</p>
-<h5 id="人脸一对一相似度比对"><a href="#人脸一对一相似度比对" class="headerlink" title="人脸一对一相似度比对"></a>人脸一对一相似度比对</h5><p>float result = (float) ifaceSdkTarget.processFaceFeatureVerify(images.get(0),images.get(1));<br>返回结果：</p>
-<p>​    成功：比对值</p>
-<p>​    失败：face_feature_verify failed: unknown result</p>
-<h5 id="获取位置信息-id为抓拍人脸id"><a href="#获取位置信息-id为抓拍人脸id" class="headerlink" title="获取位置信息(id为抓拍人脸id)"></a>获取位置信息(id为抓拍人脸id)</h5><p>String json = iFaceSdkTarget.face_detect_rect(image.getUri(),id);</p>
-<p>返回结果：</p>
-<p>​    成功：返回json数据</p>
-<p>​    失败face_detect_rect failed: unknown result：</p>
-
+        
+          <a class="article-more-a" href="/2018/11/13/Thrift/#more">more >></a>
+        
       
 
       

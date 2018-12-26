@@ -6,15 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | 我的博客</title>
+  <title>我的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
+  <meta name="description" content="kafka安装Linux上安装jdk1.8下载jdk linux版本 https://pan.baidu.com/s/1hqKKL3e">
+<meta property="og:type" content="article">
 <meta property="og:title" content="我的博客">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+<meta property="og:url" content="http://yoursite.com/2018/12/26/kafka安装/index.html">
 <meta property="og:site_name" content="我的博客">
+<meta property="og:description" content="kafka安装Linux上安装jdk1.8下载jdk linux版本 https://pan.baidu.com/s/1hqKKL3e">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/img/1544511476886.png">
+<meta property="og:image" content="http://yoursite.com/img/1132141-20170715091836368-1613910424.png">
+<meta property="og:image" content="http://yoursite.com/img/1132141-20170715092343478-1920263931.png">
+<meta property="og:image" content="http://yoursite.com/img/1132141-20170715092426493-2067877231.png">
+<meta property="og:image" content="http://yoursite.com/img/1132141-20170715092459618-527598275.png">
+<meta property="og:image" content="http://yoursite.com/img/1132141-20170715093155040-1377930247.png">
+<meta property="og:image" content="http://yoursite.com/img/1132141-20170715092204353-671378436.png">
+<meta property="og:updated_time" content="2018-12-26T12:52:24.548Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我的博客">
+<meta name="twitter:description" content="kafka安装Linux上安装jdk1.8下载jdk linux版本 https://pan.baidu.com/s/1hqKKL3e">
+<meta name="twitter:image" content="http://yoursite.com/img/1544511476886.png">
   
     <link rel="alternative" href="/atom.xml" title="我的博客" type="application/atom+xml">
   
@@ -150,64 +162,188 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-kafka安装" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
-    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="kafka安装"><a href="#kafka安装" class="headerlink" title="kafka安装"></a>kafka安装</h3><h4 id="Linux上安装jdk1-8"><a href="#Linux上安装jdk1-8" class="headerlink" title="Linux上安装jdk1.8"></a>Linux上安装jdk1.8</h4><p><strong>下载jdk linux版本</strong></p>
+<p><a href="https://pan.baidu.com/s/1hqKKL3e" target="_blank" rel="noopener">https://pan.baidu.com/s/1hqKKL3e</a></p>
+<a id="more"></a>
+<p><strong>将jdk压缩包放入服务器上</strong></p>
+<p>执行解压操作 tar zxf jdk-8u11-linux-x64.tar.gz -C /user/java</p>
+<p><strong>配置环境变量</strong></p>
+<p>执行vi /etc/profile操作</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/user/java/jdk1.8.0_11</span><br><span class="line">export PATH=$JAVA_HOME/bin:$PATH</span><br><span class="line">export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar</span><br></pre></td></tr></table></figure>
+<p><strong>让profile文件生效</strong></p>
+<p>source /etc/profile</p>
+<p><strong>测试jdk是否安装成功</strong></p>
+<p>执行java -version</p>
+<p><img src="\img\1544511476886.png" alt="1544511476886"></p>
+<h4 id="Linux上安装zookeeper集群"><a href="#Linux上安装zookeeper集群" class="headerlink" title="Linux上安装zookeeper集群"></a>Linux上安装zookeeper集群</h4><p><a href="http://apache.fayea.com/zookeeper/zookeeper-3.4.10/zookeeper-3.4.10.tar.gz" target="_blank" rel="noopener">http://apache.fayea.com/zookeeper/zookeeper-3.4.10/zookeeper-3.4.10.tar.gz</a></p>
+<p>配置zk节点的hosts文件：配置3台机器的ip地址和主机名的对应关系，其hosts文件添加下面3行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">192.168.163.130 centos1</span><br><span class="line">192.168.163.131 centos2</span><br><span class="line">192.168.163.132 centos3</span><br></pre></td></tr></table></figure>
+<p>解压</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxf zookeeper-3.4.10 -C /user/java</span><br></pre></td></tr></table></figure>
+<p>创建快照日志存放目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centos1 zookeeper-3.4.10]# mkdir -p dataDir</span><br></pre></td></tr></table></figure>
+<p>创建事务日志存放目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centos1 zookeeper-3.4.10]# mkdir dataLogDir</span><br></pre></td></tr></table></figure>
+<p>修改配置文件，添加如下内容</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">[root@centos1 zookeeper-3.4.10]# cd conf </span><br><span class="line">[root@centos1 conf]# mv zoo_sample.cfg zoo.cfg </span><br><span class="line">[root@centos1 conf]# vi zoo.cfg</span><br><span class="line"># 存放数据文件</span><br><span class="line">dataDir=/user/java/zookeeper-3.4.10/dataDir</span><br><span class="line"># 存放日志文件</span><br><span class="line">dataLogDir=/user/java/zookeeper-3.4.10/dataLogDir</span><br><span class="line"># zookeeper cluster，2888为选举端口，3888为心跳端口</span><br><span class="line">server.1=centos1:2888:3888</span><br><span class="line">server.2=centos2:2888:3888</span><br><span class="line">server.3=centos3:2888:3888</span><br></pre></td></tr></table></figure>
+<p>在我们配置的dataDir指定的目录下面，创建一个myid文件，里面内容为一个数字，用来标识当前主机，conf/zoo.cfg文件中配置的server.X中X为什么数字，则myid文件中就输入这个数字</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centos1 ~]# echo &quot;1&quot; &gt; /user/java/zookeeper-3.4.10/dataDir/myid</span><br></pre></td></tr></table></figure>
+<p>注意关闭防火墙</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">firewall-cmd --state      查看防火墙状态</span><br><span class="line">systemctl stop firewalld.service    停止firewall</span><br><span class="line">systemctl disable firewalld.service    禁止firewall开机启动</span><br></pre></td></tr></table></figure>
+<p>启动</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centos1 bin]# ./zkServer.sh start</span><br></pre></td></tr></table></figure>
+<p><strong>测试zk集群</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@centos1 bin]# ./zkServer.sh status</span><br><span class="line">JMX enabled by default</span><br><span class="line">Using config: /usr/local/zookeeper-3.4.6/bin/../conf/zoo.cfg</span><br><span class="line">Mode: follower</span><br></pre></td></tr></table></figure>
+<h4 id="Linux上安装Kafka"><a href="#Linux上安装Kafka" class="headerlink" title="Linux上安装Kafka"></a>Linux上安装Kafka</h4><p><a href="http://kafka.apache.org/downloads" target="_blank" rel="noopener">http://kafka.apache.org/downloads</a></p>
+<p>解压</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar zxf kafka_2.11-2.1.0.tgz -C /user/java</span><br></pre></td></tr></table></figure>
+<p>修改配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@centos1 kafka_2.10-0.8.1]# cd config/</span><br><span class="line">[root@centos1 config]# vi server.properties</span><br></pre></td></tr></table></figure>
+<p>创建消息持久化目录</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centos1 kafka_2.10-0.8.1]# mkdir kafkaLogs</span><br></pre></td></tr></table></figure>
+<p><img src="\img\1132141-20170715091836368-1613910424.png" alt="Alt text"></p>
+<p><img src="\img\1132141-20170715092343478-1920263931.png" alt="Alt text"></p>
+<p><img src="\img\1132141-20170715092426493-2067877231.png" alt="Alt text"></p>
+<p><img src="\img\1132141-20170715092459618-527598275.png" alt="Alt text"></p>
+<p><img src="\img\1132141-20170715093155040-1377930247.png" alt="Alt text"></p>
+<p><strong>advertised.host.name参数用来配置返回的host.name值，把这个参数配置为IP地址。这样客户端在使用java.net.InetAddress.getCanonicalHostName()获取时拿到的就是ip地址而不是主机名。</strong></p>
+<p><img src="\img\1132141-20170715092204353-671378436.png" alt="Alt text"></p>
+<p><strong>启动集群</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@centos1 kafka_2.10-0.8.1]# JMX_PORT=9997 bin/kafka-server-start.sh -daemon config/server.properties &amp;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/26/kafka安装/" class="archive-article-date">
-  	<time datetime="2018-12-26T11:51:52.270Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-26</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/12/26/kafka安装/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/13/Thrift/" class="archive-article-date">
-  	<time datetime="2018-11-13T08:11:11.015Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-13</time>
-</a>
-        </div>
-    	 
-        <div class="article-info info-on-right">
-          
-          
 
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2018/11/13/Thrift/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title"></div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+        
+    </div>
+</aside>
+
+
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -230,8 +366,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
