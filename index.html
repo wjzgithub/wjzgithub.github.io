@@ -152,15 +152,90 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-kafka安装" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-kafka学习" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/27/kafka学习/">kafka学习</a>
+    </h1>
+  
+
+        
+        <a href="/2018/12/27/kafka学习/" class="archive-article-date">
+  	<time datetime="2018-12-27T07:13:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-27</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="kafka安装"><a href="#kafka安装" class="headerlink" title="kafka安装"></a>kafka安装</h3><h4 id="Linux上安装jdk1-8"><a href="#Linux上安装jdk1-8" class="headerlink" title="Linux上安装jdk1.8"></a>Linux上安装jdk1.8</h4><p><strong>下载jdk linux版本</strong></p>
-<p><a href="https://pan.baidu.com/s/1hqKKL3e" target="_blank" rel="noopener">https://pan.baidu.com/s/1hqKKL3e</a></p>
+        <p>​    Kafka 是一个分布式的，可划分的，多订阅者,冗余备份的持久性的日志服务。以可水平扩 展和高吞吐率而被广泛使用。它主要用于处理活跃的流式数据。
         
-          <a class="article-more-a" href="/2018/12/26/kafka安装/#more">more >></a>
+      
+
+      
+    </p></div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/12/27/kafka学习/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-kafka安装" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/27/kafka安装/">Kafka安装</a>
+    </h1>
+  
+
+        
+        <a href="/2018/12/27/kafka安装/" class="archive-article-date">
+  	<time datetime="2018-12-27T07:05:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>下载jdk linux版本<a href="https://pan.baidu.com/s/1hqKKL3e" target="_blank" rel="noopener">https://pan.baidu.com/s/1hqKKL3e</a></p>
         
       
 
@@ -173,7 +248,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/12/26/kafka安装/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/12/27/kafka安装/">展开全文 >></a>
         </p>
       
 
@@ -206,16 +281,29 @@
     <article id="post-Thrift" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/27/Thrift/">Thrift学习</a>
+    </h1>
+  
+
+        
+        <a href="/2018/12/27/Thrift/" class="archive-article-date">
+  	<time datetime="2018-12-27T06:58:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-27</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Thrift"><a href="#Thrift" class="headerlink" title="Thrift"></a>Thrift</h1><h3 id="什么是Thrift"><a href="#什么是Thrift" class="headerlink" title="什么是Thrift?"></a>什么是Thrift?</h3><p>​    thrift是一种c/s的架构体系.在最上层是用户自行实现的业务逻辑代码.第二层是由thrift编译器自动生成的代码，主要用于结构化数据的解析，发送和接收。<strong>TServer</strong>主要任务是高效的接受客户端请求，并将请求转发给<strong>Processor</strong>处理。<strong>Processor</strong>负责对客户端的请求做出响应，包括RPC请求转发，调用参数解析和用户逻辑调用，返回值写回等处理。从<strong>TProtocol</strong>以下部分是thirft的传输协议和底层I/O通信。<strong>TProtocol</strong>是用于数据类型解析的，将结构化数据转化为字节流给<strong>Transport</strong>进行传输。<strong>Transport</strong>是与底层数据传输密切相关的传输层，负责以字节流方式接收和发送消息体，不关注是什么数据类型。底层IO负责实际的数据传输，包括socket、文件和压缩数据流等。</p>
-        
-          <a class="article-more-a" href="/2018/11/13/Thrift/#more">more >></a>
+        <p>​    thrift是一种c/s的架构体系.在最上层是用户自行实现的业务逻辑代码.第二层是由thrift编译器自动生成的代码，主要用于结构化数据的解析，发送和接收。<strong>TServer</strong>主要任务是高效的接受客户端请求，并将请求转发给<strong>Processor</strong>处理。
         
       
 
       
-    </div>
+    </p></div>
     <div class="article-info article-info-index">
       
       
@@ -223,7 +311,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/11/13/Thrift/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/12/27/Thrift/">展开全文 >></a>
         </p>
       
 
