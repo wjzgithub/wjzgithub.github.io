@@ -22,16 +22,16 @@
 <meta property="og:site_name" content="我的博客">
 <meta property="og:description" content="​    Kafka 是一个分布式的，可划分的，多订阅者,冗余备份的持久性的日志服务。以可水平扩 展和高吞吐率而被广泛使用。它主要用于处理活跃的流式数据。">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="c:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/897247-20161012133845281-1066342716.png">
-<meta property="og:image" content="c:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/2018092118173863.jpg">
-<meta property="og:image" content="c:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/20180921182031910.jpg">
-<meta property="og:image" content="c:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/20180921182127561.jpg">
-<meta property="og:image" content="c:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/20180921182846939.jpg">
-<meta property="og:updated_time" content="2018-12-27T07:16:08.624Z">
+<meta property="og:image" content="http://yoursite.com/img/897247-20161012133845281-1066342716.png">
+<meta property="og:image" content="http://yoursite.com/img/2018092118173863.jpg">
+<meta property="og:image" content="http://yoursite.com/img/20180921182031910.jpg">
+<meta property="og:image" content="http://yoursite.com/img/20180921182127561.jpg">
+<meta property="og:image" content="http://yoursite.com/img/20180921182846939.jpg">
+<meta property="og:updated_time" content="2019-02-12T05:21:25.213Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="kafka学习">
 <meta name="twitter:description" content="​    Kafka 是一个分布式的，可划分的，多订阅者,冗余备份的持久性的日志服务。以可水平扩 展和高吞吐率而被广泛使用。它主要用于处理活跃的流式数据。">
-<meta name="twitter:image" content="c:/Users/Lenovo/AppData/Roaming/Typora/typora-user-images/897247-20161012133845281-1066342716.png">
+<meta name="twitter:image" content="http://yoursite.com/img/897247-20161012133845281-1066342716.png">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -328,9 +328,9 @@
 <li>消息被处理的状态是在consumer 端维护，而不是由server 端维护。 当失败时能自动平衡。</li>
 </ol>
 <h3 id="Kafka原理"><a href="#Kafka原理" class="headerlink" title="Kafka原理"></a>Kafka原理</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Kafka是分布式发布-订阅消息系统，是一个分布式的，可划分的，多订阅者，冗余备份的持久性的日志服务。以可水平扩展和高吞吐率而被广泛使用，它主要用于处理活跃的流式数据。 </span><br><span class="line">生产者向特定的topic生产消息，而消费者通过订阅topic，能够准实时的拉取到该topic新消息</span><br></pre></td></tr></table></figure>
-<h4 id="Kafka的架构"><a href="#Kafka的架构" class="headerlink" title="Kafka的架构"></a>Kafka的架构</h4><p><img src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\897247-20161012133845281-1066342716.png" alt="Alt text"></p>
+<h4 id="Kafka的架构"><a href="#Kafka的架构" class="headerlink" title="Kafka的架构"></a>Kafka的架构</h4><p><img src="\img\897247-20161012133845281-1066342716.png" alt="Alt text"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Kafka采用消费组保证了一个分区只可被消费组中的一个消费者所消费， 这意味着： </span><br><span class="line">(1)在一个消费组中，一个消费者可以消费多个分区。 </span><br><span class="line">(2)不同的消费者消费的分区一定不会重复，所有消费者一起消费所有的 分区。</span><br><span class="line">(3)在不同消费组中，每个消费组都会消费所有的分区。 </span><br><span class="line">(4)同一个消费组下消费者对分区是互斥的，而不同消费组之间是共 享的</span><br></pre></td></tr></table></figure>
-<h4 id="Kafka集群结构"><a href="#Kafka集群结构" class="headerlink" title="Kafka集群结构"></a>Kafka集群结构</h4><p><img src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\2018092118173863.jpg" alt="Alt text"></p>
+<h4 id="Kafka集群结构"><a href="#Kafka集群结构" class="headerlink" title="Kafka集群结构"></a>Kafka集群结构</h4><p><img src="\img\2018092118173863.jpg" alt="Alt text"></p>
 <p><strong>Broker</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">一个Borker就是Kafka集群中的一个实例，或者说是一个服务单元。连接到同一个zookeeper的多个broker实例组成kafka的集群。在若干个broker中会有一个broker是leader，其余的broker为follower。leader在集群启动时候选举出来，负责和外部的通讯。当leader死掉的时候，follower们会再次通过选举，选择出新的leader，确保集群的正常工作。</span><br></pre></td></tr></table></figure>
 <p><strong>Consumer Group</strong></p>
@@ -339,15 +339,15 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kafka中消息订阅和发送都是基于某个topic。比如有个topic叫做NBA赛事信息，那么producer会把NBA赛事信息的消息发送到此topic下面。所有订阅此topic的consumer将会拉取到此topic下的消息。Topic就像一个特定主题的收件箱，producer往里丢，consumer取走。</span><br></pre></td></tr></table></figure>
 <p><strong>分区（Partition）</strong></p>
 <p>大多数消息系统，同一个topic下的消息，存储在一个队列。分区的概念就是把这个队列划分为若干个小队列，每一个小队列就是一个分区，如下图：</p>
-<p><img src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\20180921182031910.jpg" alt="Alt text"></p>
+<p><img src="\img\20180921182031910.jpg" alt="Alt text"></p>
 <p><em>好处</em></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">无分区时，一个topic只有一个消费者在消费这个消息队列。采用分区后，如果有两个分区，最多两个消费者同时消费，消费的速度肯定会更快。如果觉得不够快，可以加到四个分区，让四个消费者并行消费。分区的设计大大的提升了kafka的吞吐量！！</span><br></pre></td></tr></table></figure>
-<p><img src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\20180921182127561.jpg" alt="Alt text"></p>
+<p><img src="\img\20180921182127561.jpg" alt="Alt text"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1、一个partition只能被同组的一个consumer消费（图中只会有一个箭头指向一个partition）</span><br><span class="line">2、同一个组里的一个consumer可以消费多个partition（图中第一个consumer消费Partition 0和3）</span><br><span class="line">3、消费效率最高的情况是partition和consumer数量相同。这样确保每个consumer专职负责一个partition。</span><br><span class="line">4、consumer数量不能大于partition数量。由于第一点的限制，当consumer多于partition时，就会有consumer闲置。</span><br><span class="line">5、consumer group可以认为是一个订阅者的集群，其中的每个consumer负责自己所消费的分区</span><br></pre></td></tr></table></figure>
 <p><strong>副本(Replica)</strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">在kafka中，正本和副本都称之为副本（Repalica），但存在leader和follower之分。活跃的称之为leader，其他的是follower.</span><br><span class="line">每个分区的数据都会有多份副本，以此来保证Kafka的高可用。</span><br></pre></td></tr></table></figure>
 <p>Topic、partition、replica的关系如下图：</p>
-<p><img src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\20180921182846939.jpg" alt="Alt text"></p>
+<p><img src="\img\20180921182846939.jpg" alt="Alt text"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">topic下会划分多个partition，每个partition都有自己的replica，其中只有一个是leader replica，其余的是follower replica。</span><br><span class="line"></span><br><span class="line">消息进来的时候会先存入leader replica，然后从leader replica复制到follower replica。只有复制全部完成时，consumer才可以消费此条消息。这是为了确保意外发生时，数据可以恢复。consumer的消费也是从leader replica读取的。</span><br></pre></td></tr></table></figure>
 <p><strong>直击Kafka的心脏——控制器</strong></p>
 <p>在Kafka集群中会有一个或者多个broker，其中有一个broker会被选举为控制器（Kafka Controller），它负责管理整个集群中所有分区和副本的状态。当某个分区的leader副本出现故障时，由控制器负责为该分区选举新的leader副本。当检测到某个分区的<strong><em>ISR集合</em></strong>(<em>所有同partiton leader数据同步的Replica集合</em>)发生变化时，由控制器负责通知所有broker更新其元数据信息。当使用kafka-topics.sh脚本为某个topic增加分区数量时，同样还是由控制器负责分区的重新分配。</p>
@@ -403,7 +403,7 @@
         <p><span>本文标题:</span><a href="/2018/12/27/kafka学习/">kafka学习</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Wei jinzhi</a></p>
         <p><span>发布时间:</span>2018-12-27, 15:13:31</p>
-        <p><span>最后更新:</span>2018-12-27, 15:16:08</p>
+        <p><span>最后更新:</span>2019-02-12, 13:21:25</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2018/12/27/kafka学习/" title="kafka学习">http://yoursite.com/2018/12/27/kafka学习/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2018/12/27/kafka学习/　　作者: Wei jinzhi" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -417,6 +417,12 @@
 
 
     <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2019/01/02/excel下载/">
+                    excel下载
+                </a>
+            </div>
         
         
             <div id="article-nav-older" class="article-nav-title">
@@ -489,7 +495,9 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2019/01/02/excel下载/" title="上一篇: excel下载">
+                <i class="fa fa-angle-left"></i>
+            </a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
@@ -501,7 +509,7 @@
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/kafka学习/">kafka学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/kafka安装/">Kafka安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/Thrift/">Thrift学习</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/02/25/单点登陆之CAS/">单点登陆之CAS</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/11/excel下载升级/">zip下载</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/excel下载/">excel下载</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/kafka学习/">kafka学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/kafka安装/">Kafka安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/Thrift/">Thrift学习</a></li></ul>
 
 
 
