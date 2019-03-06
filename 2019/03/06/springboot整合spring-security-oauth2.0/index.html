@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+
+    <!--[if lt IE 9]>
+        <style>body {display: none; background: none !important} </style>
+        <meta http-equiv="Refresh" Content="0; url=//outdatedbrowser.com/" />
+    <![endif]-->
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="format-detection" content="telephone=no">
+<meta name="author" content="Wei jinzhi">
+
+
+
+<meta name="description" content="在开始之前，特别强调一下OAuth和SSO的区别： OAuth主要用来解决系统和系统间的身份认证问题，比如A、B、C三个独立部署的微服务系统均以REST对外提供服务，现在为A系统增加一些限制，只让B系统调用，而禁止C系统调用； SSO主要用来帮助用户减少在相通的平台重复输入用户名和密码的登陆操作，例如：用户U在A系统上输入用户名密码之后完成登陆操作，在同一个浏览器的另一个页面打开B系统时可以直接">
+<meta property="og:type" content="article">
+<meta property="og:title" content="springboot整合spring security oauth2.0">
+<meta property="og:url" content="http://yoursite.com/2019/03/06/springboot整合spring-security-oauth2.0/index.html">
+<meta property="og:site_name" content="我的博客">
+<meta property="og:description" content="在开始之前，特别强调一下OAuth和SSO的区别： OAuth主要用来解决系统和系统间的身份认证问题，比如A、B、C三个独立部署的微服务系统均以REST对外提供服务，现在为A系统增加一些限制，只让B系统调用，而禁止C系统调用； SSO主要用来帮助用户减少在相通的平台重复输入用户名和密码的登陆操作，例如：用户U在A系统上输入用户名密码之后完成登陆操作，在同一个浏览器的另一个页面打开B系统时可以直接">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/img/1551860689127.png">
+<meta property="og:image" content="http://yoursite.com/img/1551860706471.png">
+<meta property="og:image" content="http://yoursite.com/img/2019-03-06_162151.png">
+<meta property="og:updated_time" content="2019-03-06T08:28:32.157Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="springboot整合spring security oauth2.0">
+<meta name="twitter:description" content="在开始之前，特别强调一下OAuth和SSO的区别： OAuth主要用来解决系统和系统间的身份认证问题，比如A、B、C三个独立部署的微服务系统均以REST对外提供服务，现在为A系统增加一些限制，只让B系统调用，而禁止C系统调用； SSO主要用来帮助用户减少在相通的平台重复输入用户名和密码的登陆操作，例如：用户U在A系统上输入用户名密码之后完成登陆操作，在同一个浏览器的另一个页面打开B系统时可以直接">
+<meta name="twitter:image" content="http://yoursite.com/img/1551860689127.png">
+
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+
+
+    <link rel="alternate" href="/atom.xml" title="我的博客" type="application/atom+xml">
+
+
+
+    <link rel="shortcut icon" href="/img/TiddlyWiki.png">
+
+
+
+    <link href="//cdn.bootcss.com/animate.css/3.5.1/animate.min.css" rel="stylesheet">
+
+
+
+    <link href="//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet">
+
+
+
+    <script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+    <link href="//cdn.bootcss.com/pace/1.0.2/themes/blue/pace-theme-minimal.css" rel="stylesheet">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+
+<link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+
+
+<title>springboot整合spring security oauth2.0 | 我的博客</title>
+
+<script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
+
+<script>
+    var yiliaConfig = {
+        fancybox: true,
+        animate: true,
+        isHome: false,
+        isPost: true,
+        isArchive: false,
+        isTag: false,
+        isCategory: false,
+        fancybox_js: "//cdn.bootcss.com/fancybox/2.1.5/jquery.fancybox.min.js",
+        scrollreveal: "//cdn.bootcss.com/scrollReveal.js/3.1.4/scrollreveal.min.js",
+        search: false
+    }
+</script>
+
+
+    <script> yiliaConfig.jquery_ui = [false]; </script>
+
+
+
+    <script> yiliaConfig.rootUrl = "\/";</script>
+
+
+
+
+
+
+</head></html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3709028958,3842633302&amp;fm=27&amp;gp=0.jpg" class="animated zoomIn">
+        </a>
+        <hgroup>
+          <h1 class="header-author"><a href="/">Wei jinzhi</a></h1>
+        </hgroup>
+
+        
+
+        
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" href="mailto:123@123.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                      <a class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">专注于前端</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">Wei jinzhi</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3709028958,3842633302&amp;fm=27&amp;gp=0.jpg" class="animated zoomIn">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">Wei jinzhi</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fa Email" target="_blank" href="mailto:123@123.com" title="Email"></a>
+                            
+                                <a class="fa GitHub" target="_blank" href="#" title="GitHub"></a>
+                            
+                                <a class="fa RSS" target="_blank" href="/atom.xml" title="RSS"></a>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+    <link class="menu-list" tags="标签" friends="友情链接" about="关于我">
+</nav>
+      <div class="body-wrap"><article id="post-springboot整合spring-security-oauth2.0" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/03/06/springboot整合spring-security-oauth2.0/" class="article-date">
+      <time datetime="2019-03-06T02:15:00.000Z" itemprop="datePublished">2019-03-06</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      springboot整合spring security oauth2.0
+    </h1>
+  
+
+		
+			<div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">2.1k字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">11分</span>
+      </span>
+    </span>
+</div>
+		
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <blockquote>
+<p>在开始之前，特别强调一下OAuth和SSO的区别：</p>
+<p>OAuth主要用来解决系统和系统间的身份认证问题，比如A、B、C三个独立部署的微服务系统均以REST对外提供服务，现在为A系统增加一些限制，只让B系统调用，而禁止C系统调用；</p>
+<p>SSO主要用来帮助用户减少在相通的平台重复输入用户名和密码的登陆操作，例如：用户U在A系统上输入用户名密码之后完成登陆操作，在同一个浏览器的另一个页面打开B系统时可以直接进入系统而不用再次输入用户名密码点击登陆;</p>
+</blockquote>
+<a id="more"></a>
+<h1 id="获取token流程"><a href="#获取token流程" class="headerlink" title="获取token流程"></a>获取token流程</h1><ol>
+<li>用户发起获取token的请求。</li>
+<li>过滤器会验证path是否是认证的请求/oauth/token，如果为false，则直接返回没有后续操作。</li>
+<li>过滤器通过clientId查询生成一个Authentication对象。</li>
+<li>然后会通过username和生成的Authentication对象生成一个UserDetails对象，并检查用户是否存在。</li>
+<li>以上全部通过会进入地址/oauth/token，即TokenEndpoint的postAccessToken方法中。</li>
+<li>postAccessToken方法中会验证Scope，然后验证是否是refreshToken请求等。</li>
+<li>之后调用AbstractTokenGranter中的grant方法。</li>
+<li>grant方法中调用AbstractUserDetailsAuthenticationProvider的authenticate方法，通过username和Authentication对象来检索用户是否存在。</li>
+<li>然后通过DefaultTokenServices类从tokenStore中获取OAuth2AccessToken对象。</li>
+<li>然后将OAuth2AccessToken对象包装进响应流返回。</li>
+</ol>
+<h1 id="文件配置"><a href="#文件配置" class="headerlink" title="文件配置"></a>文件配置</h1><h2 id="UserDetailsServiceImpl"><a href="#UserDetailsServiceImpl" class="headerlink" title="UserDetailsServiceImpl"></a>UserDetailsServiceImpl</h2><p>这里重写了security认证UserDetailsService 的接口方法，添加了自定义数据库密码的查询和校验。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br></pre></td><td class="code"><pre><span class="line">@Service</span><br><span class="line">public class UserDetailsServiceImpl implements UserDetailsService &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private UserDao userDao;</span><br><span class="line">    </span><br><span class="line">    @Resource(name = &quot;redisTemplate&quot;)</span><br><span class="line">    private HashOperations&lt;String,String,String&gt; redisVisitMap;</span><br><span class="line">    @Resource(name = &quot;redisTemplate&quot;)</span><br><span class="line">    private HashOperations&lt;String,String,OnLineUserInfo&gt; redisOnlineUserMap;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    public UserDetailsServiceImpl(RoleDao roleRepository) &#123;</span><br><span class="line">        UserRepositoryOAuthUserDetails.roleDao = roleRepository;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public UserDetails loadUserByUsername(String username) &#123;</span><br><span class="line">        UserInfo userInfo = userDao.findByName(username);</span><br><span class="line">        if (userInfo == null) &#123;</span><br><span class="line">            throw new UsernameNotFoundException(String.format(&quot;OAuth UserInfo %s does not exist!&quot;, username));</span><br><span class="line">        &#125;</span><br><span class="line">        Map&lt;String, OnLineUserInfo&gt; onLineUserMap = redisOnlineUserMap.entries(RedisConsts.USERONLINE);</span><br><span class="line">        if (onLineUserMap.containsKey(username)) &#123;</span><br><span class="line">        	String loginInfo = redisVisitMap.get(RedisConsts.USERVISIT, username);</span><br><span class="line">        	if(loginInfo != null)&#123;</span><br><span class="line">        		 loginInfo = loginInfo.split(&quot;,&quot;)[0]+&quot;,&quot;+true;</span><br><span class="line">        		 redisVisitMap.put(RedisConsts.USERVISIT, username, loginInfo);</span><br><span class="line">        	&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return new UserRepositoryOAuthUserDetails(userInfo);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    private static final class UserRepositoryOAuthUserDetails extends UserInfo implements UserDetails &#123;</span><br><span class="line">        </span><br><span class="line">        private static final long serialVersionUID = 1L;</span><br><span class="line">        </span><br><span class="line">        public static RoleDao roleDao;</span><br><span class="line"></span><br><span class="line">        private UserRepositoryOAuthUserDetails(UserInfo userInfo) &#123;</span><br><span class="line">            super(userInfo);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public Collection&lt;? extends GrantedAuthority&gt; getAuthorities() &#123;</span><br><span class="line">            String[] roleIds = this.getRoleIds().split(&quot;,&quot;);</span><br><span class="line">            Collection&lt;RoleInfo&gt; authorities = new HashSet&lt;RoleInfo&gt;();</span><br><span class="line">            for (int i = 0; i &lt; roleIds.length; i++) &#123;</span><br><span class="line">                if (&quot;&quot;.equals(roleIds[i])) &#123;</span><br><span class="line">                    continue;</span><br><span class="line">                &#125;</span><br><span class="line">                long roleId = Long.parseLong(roleIds[i]);</span><br><span class="line">                RoleInfo roleInfo = roleDao.findOne(roleId);</span><br><span class="line">                authorities.add(roleInfo);</span><br><span class="line">            &#125;</span><br><span class="line">            return authorities;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public String getUsername() &#123;</span><br><span class="line">            return getName();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public boolean isAccountNonExpired() &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public boolean isAccountNonLocked() &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public boolean isCredentialsNonExpired() &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        @Override</span><br><span class="line">        public boolean isEnabled() &#123;</span><br><span class="line">            return true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="OauthResourceServerConfiguration"><a href="#OauthResourceServerConfiguration" class="headerlink" title="OauthResourceServerConfiguration"></a>OauthResourceServerConfiguration</h2><p>我这里只需要认证<code>/intellif/*</code>开头的url。<code>@EnableResourceServer</code>这个注解就决定了这十个资源服务器。它决定了哪些资源需要什么样的权限。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">@EnableResourceServer</span><br><span class="line">public class OauthResourceServerConfiguration extends ResourceServerConfigurerAdapter &#123;</span><br><span class="line"></span><br><span class="line">    private Logger logger = LogManager.getLogger(OauthResourceServerConfiguration.class);</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void configure(HttpSecurity http) throws Exception &#123;</span><br><span class="line">        logger.info(&quot;=========================111111111=========&quot;);</span><br><span class="line">        http.authorizeRequests()</span><br><span class="line">            .antMatchers(&quot;/intellif/**&quot;).authenticated();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="OauthAuthorizationServerConfiguration"><a href="#OauthAuthorizationServerConfiguration" class="headerlink" title="OauthAuthorizationServerConfiguration"></a>OauthAuthorizationServerConfiguration</h2><p>认证服务中，我们获取到ClientDetailsServiceConfigurer 并设置clientId和secret还有令牌有效期，还有支持的授权模式，还有用户权限范围。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">@EnableAuthorizationServer</span><br><span class="line">public class OauthAuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter &#123;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 24 * 60 * 60 * 1000 默认24小时;</span><br><span class="line">     */</span><br><span class="line">    private static int tokenExpireIn ;</span><br><span class="line">    /**</span><br><span class="line">     * 24 * 60 * 60 * 1000 ; //默认24小时;</span><br><span class="line">     */</span><br><span class="line">    private static int tokenInvalidateTime ;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private OauthAccessTokenDao oauthAccessTokenDao;</span><br><span class="line">    </span><br><span class="line">    @Autowired</span><br><span class="line">    private DataSource dataSource;</span><br><span class="line">    </span><br><span class="line">    @Autowired</span><br><span class="line">    @Qualifier(&quot;authenticationManagerBean&quot;)</span><br><span class="line">    private AuthenticationManager authenticationManager;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private UserDetailsServiceImpl userDetailsService;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private OauthClientDetailsDao oauthClientDetailsRepository;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    public static int getTokenExpireIn() &#123;</span><br><span class="line">		return tokenExpireIn;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static void setTokenExpireIn(int tokenExpireIn) &#123;</span><br><span class="line">		OauthAuthorizationServerConfiguration.tokenExpireIn = tokenExpireIn;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static int getTokenInvalidateTime() &#123;</span><br><span class="line">		return tokenInvalidateTime;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	public static void setTokenInvalidateTime(int tokenInvalidateTime) &#123;</span><br><span class="line">		OauthAuthorizationServerConfiguration.tokenInvalidateTime = tokenInvalidateTime;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">    </span><br><span class="line">    @Bean</span><br><span class="line">    public TokenStore tokenStore() &#123;</span><br><span class="line">        return new JdbcTokenStore(dataSource);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void configure(AuthorizationServerEndpointsConfigurer endpoints)</span><br><span class="line">            throws Exception &#123;</span><br><span class="line"></span><br><span class="line">        endpoints</span><br><span class="line">                .tokenStore(this.tokenStore())</span><br><span class="line">                .authenticationManager(this.authenticationManager)</span><br><span class="line">                .userDetailsService(userDetailsService);</span><br><span class="line">        endpoints.tokenEnhancer(tokenEnhancer()).tokenServices(tokenServices(oauthAccessTokenDao));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public void configure(ClientDetailsServiceConfigurer clients) throws Exception &#123;</span><br><span class="line">        clients.jdbc(dataSource);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    @Primary</span><br><span class="line">    public DefaultTokenServices tokenServices(OauthAccessTokenDao oauthAccessTokenDao) &#123;</span><br><span class="line">        OauthTokenService tokenServices = new OauthTokenService();</span><br><span class="line">        tokenServices.setOauthAccessTokenDao(oauthAccessTokenDao);</span><br><span class="line">        tokenServices.setSupportRefreshToken(true);</span><br><span class="line">        tokenServices.setTokenStore(this.tokenStore());</span><br><span class="line">        tokenServices.setTokenEnhancer(tokenEnhancer());</span><br><span class="line">        </span><br><span class="line">        tokenServices.setAccessTokenValiditySeconds(tokenInvalidateTime); </span><br><span class="line">        </span><br><span class="line">        return tokenServices;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    public TokenEnhancer tokenEnhancer() &#123;</span><br><span class="line">        return new OauthTokenEnhancer();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="WebSecurityConfiguration"><a href="#WebSecurityConfiguration" class="headerlink" title="WebSecurityConfiguration"></a>WebSecurityConfiguration</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">@Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)</span><br><span class="line">public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter &#123;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private UserDetailsServiceImpl userDetailsService;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    protected void configure(AuthenticationManagerBuilder auth) throws Exception &#123;</span><br><span class="line">        auth.userDetailsService(userDetailsService);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    @Bean</span><br><span class="line">    public AuthenticationManager authenticationManagerBean() throws Exception &#123;</span><br><span class="line">        return super.authenticationManagerBean();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 通过 authorizeRequests() 定义哪些URL需要被保护、哪些不需要被保护</span><br><span class="line">     * /oauth/token不需要任何认证就可以访问，其他的路径都必须通过身份验证</span><br><span class="line">     */</span><br><span class="line">    @Override</span><br><span class="line">    protected void configure(HttpSecurity http) throws Exception &#123;</span><br><span class="line">        http</span><br><span class="line">                .authorizeRequests()</span><br><span class="line">                .antMatchers(HttpMethod.OPTIONS, &quot;/oauth/token&quot;).permitAll();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="OauthTokenService"><a href="#OauthTokenService" class="headerlink" title="OauthTokenService"></a>OauthTokenService</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public class OauthTokenService extends DefaultTokenServices &#123;</span><br><span class="line"></span><br><span class="line">    private AuthenticationKeyGenerator authenticationKeyGenerator = new DefaultAuthenticationKeyGenerator();</span><br><span class="line"></span><br><span class="line">    private OauthAccessTokenDao oauthAccessTokenDao;</span><br><span class="line"></span><br><span class="line">    public OauthAccessTokenDao getOauthAccessTokenDao() &#123;</span><br><span class="line">        return oauthAccessTokenDao;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void setOauthAccessTokenDao(OauthAccessTokenDao oauthAccessTokenDao) &#123;</span><br><span class="line">        this.oauthAccessTokenDao = oauthAccessTokenDao;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public OAuth2AccessToken createAccessToken(OAuth2Authentication authentication) &#123;</span><br><span class="line">        String key = authenticationKeyGenerator.extractKey(authentication);</span><br><span class="line">        oauthAccessTokenDao.deleteByAuthenticationId(key);</span><br><span class="line">        return super.createAccessToken(authentication);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="OauthTokenEnhancer"><a href="#OauthTokenEnhancer" class="headerlink" title="OauthTokenEnhancer"></a>OauthTokenEnhancer</h2><p>在返回数据中添加额外返回数据</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">@Service</span><br><span class="line">public class OauthTokenEnhancer implements TokenEnhancer &#123;</span><br><span class="line"></span><br><span class="line">    private static final Logger LOG = LogManager.getLogger(OauthTokenEnhancer.class);</span><br><span class="line">    </span><br><span class="line">    @Autowired</span><br><span class="line">    private UserDao userRepository;</span><br><span class="line">    @Autowired</span><br><span class="line">    private RoleDao roleRepository;</span><br><span class="line"></span><br><span class="line">    @Autowired</span><br><span class="line">    private OauthResourceDao oauthResourceRepository;</span><br><span class="line">    @Resource(name = &quot;redisTemplate&quot;)</span><br><span class="line">    private HashOperations&lt;String,String,String&gt; redisVisitMap;</span><br><span class="line"></span><br><span class="line">    public OauthTokenEnhancer() &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public OAuth2AccessToken enhance(OAuth2AccessToken accessToken, OAuth2Authentication authentication) &#123;</span><br><span class="line"></span><br><span class="line">        UserDetails userDetails = (UserDetails) authentication.getPrincipal();</span><br><span class="line">        final Map&lt;String, Object&gt; additionalInfo = new HashMap&lt;String, Object&gt;();</span><br><span class="line">        String login = userDetails.getUsername();</span><br><span class="line">        LOG.info(&quot;UserDetails.login:&quot; + login);</span><br><span class="line">        UserInfo userInfo = this.userRepository.findByName(login);</span><br><span class="line">        LOG.info(&quot;UserInfo by login:&quot; + userInfo.toString());</span><br><span class="line">        List&lt;RoleInfo&gt; roleInfoList = new ArrayList&lt;RoleInfo&gt;();</span><br><span class="line">        String[] roleIds = userInfo.getRoleIds().split(&quot;,&quot;);</span><br><span class="line">        LOG.info(&quot;Raw roleIds:&quot; + Arrays.toString(roleIds));  </span><br><span class="line">        List&lt;OauthResource&gt; oauthResourceList = new ArrayList&lt;OauthResource&gt;();</span><br><span class="line">        for (int i = 0; i &lt; roleIds.length; i++) &#123;</span><br><span class="line">            long roleId = Long.parseLong(roleIds[i]);</span><br><span class="line">            RoleInfo roleInfo = this.roleRepository.findOne(roleId);</span><br><span class="line">            roleInfoList.add(roleInfo);</span><br><span class="line">            String[] resIds = roleInfo.getResIds().split(&quot;,&quot;);</span><br><span class="line">            LOG.info(&quot;Raw resIds:&quot; +  Arrays.toString(resIds));  </span><br><span class="line">            for (int j = 0; j &lt; resIds.length; j++) &#123;</span><br><span class="line">                Long resId = Long.parseLong(resIds[j]);</span><br><span class="line">                OauthResource oauthResource = this.oauthResourceRepository.findOne(resId);</span><br><span class="line">                oauthResourceList.add(oauthResource);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        LOG.info(&quot;OauthTokenEnhancer construct with,userInfo:&quot; + userInfo.toString() + &quot;,roleInfoList:&quot; + roleInfoList.toString() + &quot;,oauthResourceList:&quot; + oauthResourceList.toString());</span><br><span class="line">        additionalInfo.put(GlobalConsts.OAUTH_A_I_K_ROLE_INFO_S, roleInfoList);</span><br><span class="line">        additionalInfo.put(GlobalConsts.OAUTH_A_I_K_USER_INFO, userInfo);</span><br><span class="line">        additionalInfo.put(GlobalConsts.OAUTH_A_I_K_USER_DETAIL, userDetails);</span><br><span class="line">        additionalInfo.put(GlobalConsts.OAUTH_A_I_K_OAUTH_RES_S, oauthResourceList);</span><br><span class="line">        additionalInfo.put(&quot;errCode&quot;, 0);</span><br><span class="line">        String haslogin = &quot;&quot;;</span><br><span class="line">        String visit = redisVisitMap.get(RedisConsts.USERVISIT, login);</span><br><span class="line">        if(visit != null)&#123;</span><br><span class="line">        	String[] logininfo = visit.split(&quot;,&quot;);</span><br><span class="line">        	if(logininfo.length&gt;=2&amp;&amp;logininfo[1].equals(&quot;true&quot;))&#123;</span><br><span class="line">        		haslogin = &quot;该账号已经登录啦，你要踢掉它么&quot;;</span><br><span class="line">        	&#125;</span><br><span class="line">        &#125;</span><br><span class="line">        additionalInfo.put(&quot;haslogin&quot;,haslogin);</span><br><span class="line">        </span><br><span class="line">        ((DefaultOAuth2AccessToken) accessToken).setAdditionalInformation(additionalInfo);</span><br><span class="line">        ((DefaultOAuth2AccessToken) accessToken).setExpiration(new Date(System.currentTimeMillis() + OauthAuthorizationServerConfiguration.getTokenExpireIn()));</span><br><span class="line">       </span><br><span class="line">        LOG.info(&quot;token的失效时间是 &#123;&#125; &quot;,((DefaultOAuth2AccessToken) accessToken).getExpiresIn());</span><br><span class="line">        return accessToken;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="MethodSecurityConfig"><a href="#MethodSecurityConfig" class="headerlink" title="MethodSecurityConfig"></a>MethodSecurityConfig</h2><p>前面实现了认证,一般都满足不了应用的需求.使用@EnableGlobalMethodSecurity来实现授权,实现用户对某个操作是否有权限的控制.</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">@EnableGlobalMethodSecurity(prePostEnabled = true, proxyTargetClass = true)</span><br><span class="line">public class MethodSecurityConfig extends GlobalMethodSecurityConfiguration &#123;</span><br><span class="line">    @Bean</span><br><span class="line">    public OAuth2MethodSecurityExpressionHandler oauthExpressionHandler() &#123;</span><br><span class="line">        return new OAuth2MethodSecurityExpressionHandler();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="数据库结构"><a href="#数据库结构" class="headerlink" title="数据库结构"></a>数据库结构</h1><h2 id="用户表、角色表、权限表、角色权限关系表"><a href="#用户表、角色表、权限表、角色权限关系表" class="headerlink" title="用户表、角色表、权限表、角色权限关系表"></a>用户表、角色表、权限表、角色权限关系表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">DROP TABLE IF EXISTS `t_user`;</span><br><span class="line">CREATE TABLE IF NOT EXISTS `t_user` (</span><br><span class="line">  `id` bigint(20) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  `name` varchar(255) NOT NULL,</span><br><span class="line">  `password` varchar(255) NOT NULL,</span><br><span class="line">  `role_ids` mediumtext NOT NULL,</span><br><span class="line">  PRIMARY KEY (`id`),</span><br><span class="line">  UNIQUE KEY `name` (`name`)</span><br><span class="line">) ENGINE=InnoDB AUTO_INCREMENT=143 DEFAULT CHARSET=utf8;</span><br><span class="line"></span><br><span class="line">DROP TABLE IF EXISTS `t_role`;</span><br><span class="line">CREATE TABLE IF NOT EXISTS `t_role` (</span><br><span class="line">  `id` bigint(20) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  `name` varchar(255) NOT NULL,</span><br><span class="line">  `res_ids` varchar(255) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`id`)</span><br><span class="line">) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;</span><br><span class="line"></span><br><span class="line">DROP TABLE IF EXISTS `t_resource`;</span><br><span class="line">CREATE TABLE IF NOT EXISTS `t_resource` (</span><br><span class="line">  `id` bigint(20) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  `cn_name` varchar(255) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`id`)</span><br><span class="line">) ENGINE=InnoDB AUTO_INCREMENT=161 DEFAULT CHARSET=utf8;</span><br><span class="line"></span><br><span class="line">DROP TABLE IF EXISTS `t_role_resource`;</span><br><span class="line">CREATE TABLE `t_role_resource` (</span><br><span class="line">  `id` bigint(64) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  `role_name` varchar(255) NOT NULL COMMENT &apos;角色名称&apos;,</span><br><span class="line">  `resource_id` bigint(20) DEFAULT NULL COMMENT &apos;行政区编号&apos;,</span><br><span class="line">  PRIMARY KEY (`id`)</span><br><span class="line">) ENGINE=InnoDB AUTO_INCREMENT=75 DEFAULT CHARSET=utf8 COMMENT=&apos;角色对应的功能权限表&apos;;</span><br></pre></td></tr></table></figure>
+<h2 id="初始化数据"><a href="#初始化数据" class="headerlink" title="初始化数据"></a>初始化数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO t_user</span><br><span class="line">SELECT 1, &apos;superuser&apos;, &apos;e10adc3949ba59abbe56e057f20f883e&apos;, &apos;1&apos;</span><br><span class="line">FROM dual</span><br><span class="line">WHERE not exists (select * from t_user</span><br><span class="line">where t_user.id = 1 or t_user.`name`=&apos;superuser&apos;);</span><br><span class="line"></span><br><span class="line">REPLACE INTO `t_role` VALUES (&apos;1&apos;, &apos;SUPER_ADMIN&apos;, &apos;1,100,200,300,400,500,600,700,800&apos;);</span><br><span class="line"></span><br><span class="line">REPLACE INTO intellif_base.t_resource (id, cn_name) values (1, &apos;数据共享&apos;);</span><br><span class="line">REPLACE INTO intellif_base.t_resource (id, cn_name) values (100, &apos;布控功能&apos;);</span><br><span class="line">REPLACE INTO intellif_base.t_resource (id, cn_name) values (101, &apos;布控功能(仅查看)&apos;);</span><br><span class="line">REPLACE INTO intellif_base.t_resource (id, cn_name) values (200, &apos;高级管理&apos;);</span><br><span class="line">REPLACE INTO intellif_base.t_resource (id, cn_name) values (201, &apos;高级管理(分局)&apos;);</span><br><span class="line">REPLACE INTO intellif_base.t_resource (id, cn_name) values (202, &apos;高级管理(派出所)&apos;);</span><br><span class="line">REPLACE INTO intellif_base.t_resource (id, cn_name) values (300, &apos;数据挖掘&apos;);</span><br><span class="line">REPLACE INTO intellif_base.t_resource (id, cn_name) values (400, &apos;数据统计&apos;);</span><br><span class="line">REPLACE INTO intellif_base.t_resource (id, cn_name) values (500, &apos;报警导出&apos;);</span><br><span class="line">REPLACE INTO intellif_base.t_resource (id, cn_name) values (600, &apos;离线布控&apos;);</span><br><span class="line">REPLACE INTO intellif_base.t_resource (id, cn_name) values (700, &apos;人像1:1比对&apos;);</span><br><span class="line">REPLACE INTO intellif_base.t_resource (id, cn_name) values (800, &apos;通用&apos;);</span><br></pre></td></tr></table></figure>
+<h2 id="token相关表"><a href="#token相关表" class="headerlink" title="token相关表"></a>token相关表</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">DROP TABLE IF EXISTS `oauth_access_token`;</span><br><span class="line">CREATE TABLE `oauth_access_token` (</span><br><span class="line">  `token_id` varchar(255) DEFAULT NULL,</span><br><span class="line">  `token` mediumblob,</span><br><span class="line">  `authentication_id` varchar(255) NOT NULL,</span><br><span class="line">  `user_name` varchar(255) DEFAULT NULL,</span><br><span class="line">  `client_id` varchar(255) DEFAULT NULL,</span><br><span class="line">  `authentication` mediumblob,</span><br><span class="line">  `refresh_token` varchar(255) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`authentication_id`)</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8;</span><br><span class="line"></span><br><span class="line">DROP TABLE IF EXISTS `oauth_client_details`;</span><br><span class="line">CREATE TABLE `oauth_client_details` (</span><br><span class="line">  `client_id` varchar(255) NOT NULL,</span><br><span class="line">  `client_secret` varchar(255) DEFAULT NULL,</span><br><span class="line">  `scope` varchar(255) DEFAULT NULL,</span><br><span class="line">  `authorized_grant_types` varchar(255) DEFAULT NULL,</span><br><span class="line">  `authorities` varchar(255) DEFAULT NULL,</span><br><span class="line">  PRIMARY KEY (`client_id`)</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8;</span><br><span class="line"></span><br><span class="line">DROP TABLE IF EXISTS `oauth_refresh_token`;</span><br><span class="line">CREATE TABLE `oauth_refresh_token` (</span><br><span class="line">  `token_id` varchar(255) DEFAULT NULL,</span><br><span class="line">  `token` mediumblob,</span><br><span class="line">  `authentication` mediumblob</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8;</span><br></pre></td></tr></table></figure>
+<h2 id="初始化数据-1"><a href="#初始化数据-1" class="headerlink" title="初始化数据"></a>初始化数据</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">INSERT INTO `oauth_client_details` VALUES (&apos;clientapp&apos;, &apos;&apos;, &apos;123456&apos;, &apos;read,write&apos;, &apos;password,refresh_token&apos;, &apos;&apos;, &apos;USER&apos;, null, null, &apos;&#123;&#125;&apos;, &apos;&apos;);</span><br></pre></td></tr></table></figure>
+<h1 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h1><h2 id="请求"><a href="#请求" class="headerlink" title="请求"></a>请求</h2><p><img src="\img\1551860689127.png" alt="1551860689127"></p>
+<p><img src="\img\1551860706471.png" alt="1551860706471"></p>
+<h2 id="返回"><a href="#返回" class="headerlink" title="返回"></a>返回</h2><p><img src="\img\2019-03-06_162151.png" alt="Alt text"></p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2019/03/06/springboot整合spring-security-oauth2.0/">springboot整合spring security oauth2.0</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Wei jinzhi</a></p>
+        <p><span>发布时间:</span>2019-03-06, 10:15:00</p>
+        <p><span>最后更新:</span>2019-03-06, 16:28:32</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2019/03/06/springboot整合spring-security-oauth2.0/" title="springboot整合spring security oauth2.0">http://yoursite.com/2019/03/06/springboot整合spring-security-oauth2.0/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/03/06/springboot整合spring-security-oauth2.0/　　作者: Wei jinzhi" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2019/02/25/单点登陆之CAS/">
+                    单点登陆之CAS
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#获取token流程"><span class="toc-number">1.</span> <span class="toc-text">获取token流程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#文件配置"><span class="toc-number">2.</span> <span class="toc-text">文件配置</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#UserDetailsServiceImpl"><span class="toc-number">2.1.</span> <span class="toc-text">UserDetailsServiceImpl</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OauthResourceServerConfiguration"><span class="toc-number">2.2.</span> <span class="toc-text">OauthResourceServerConfiguration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OauthAuthorizationServerConfiguration"><span class="toc-number">2.3.</span> <span class="toc-text">OauthAuthorizationServerConfiguration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WebSecurityConfiguration"><span class="toc-number">2.4.</span> <span class="toc-text">WebSecurityConfiguration</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OauthTokenService"><span class="toc-number">2.5.</span> <span class="toc-text">OauthTokenService</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OauthTokenEnhancer"><span class="toc-number">2.6.</span> <span class="toc-text">OauthTokenEnhancer</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MethodSecurityConfig"><span class="toc-number">2.7.</span> <span class="toc-text">MethodSecurityConfig</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#数据库结构"><span class="toc-number">3.</span> <span class="toc-text">数据库结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#用户表、角色表、权限表、角色权限关系表"><span class="toc-number">3.1.</span> <span class="toc-text">用户表、角色表、权限表、角色权限关系表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化数据"><span class="toc-number">3.2.</span> <span class="toc-text">初始化数据</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#token相关表"><span class="toc-number">3.3.</span> <span class="toc-text">token相关表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#初始化数据-1"><span class="toc-number">3.4.</span> <span class="toc-text">初始化数据</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#应用"><span class="toc-number">4.</span> <span class="toc-text">应用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#请求"><span class="toc-number">4.1.</span> <span class="toc-text">请求</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#返回"><span class="toc-number">4.2.</span> <span class="toc-text">返回</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"springboot整合spring security oauth2.0　| 我的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2019/02/25/单点登陆之CAS/" title="下一篇: 单点登陆之CAS">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/03/06/springboot整合spring-security-oauth2.0/">springboot整合spring security oauth2.0</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/25/单点登陆之CAS/">单点登陆之CAS</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/11/excel下载升级/">zip下载</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/excel下载/">excel下载</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/kafka学习/">kafka学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/kafka安装/">Kafka安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/Thrift/">Thrift学习</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                <i class="fa fa-copyright"></i> 
+                2018-2019 Wei jinzhi
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的博客框架">Hexo</a>  Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee" target="_blank" title="简而不减 Hexo 双栏博客主题  v3.5">Yelee</a> by MOxFIVE <i class="fa fa-heart animated infinite pulse"></i>
+            </div>
+        </div>
+        
+            <div class="visit">
+                
+                    <span id="busuanzi_container_site_pv" style="display:none">
+                        <span id="site-visit" title="本站到访数"><i class="fa fa-user" aria-hidden="true"></i><span id="busuanzi_value_site_uv"></span>
+                        </span>
+                    </span>
+                
+                
+                    <span>| </span>
+                
+                
+                    <span id="busuanzi_container_page_pv" style="display:none">
+                        <span id="page-visit" title="本页阅读量"><i class="fa fa-eye animated infinite pulse" aria-hidden="true"></i><span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    </span>
+                
+            </div>
+        
+    </div>
+</footer>
+    </div>
+    
+<script data-main="/js/main.js" src="//cdn.bootcss.com/require.js/2.2.0/require.min.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" onclick="load$hide();" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    // Open in New Window
+    
+        var oOpenInNew = {
+            
+            
+            
+            
+            
+            
+             archives: ".archive-article-title", 
+             miniArchives: "a.post-list-link", 
+            
+             friends: "#js-friends a", 
+             socail: ".social a" 
+        }
+        for (var x in oOpenInNew) {
+            $(oOpenInNew[x]).attr("target", "_blank");
+        }
+    
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
