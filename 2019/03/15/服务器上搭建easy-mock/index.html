@@ -15,14 +15,19 @@
 
 
 
+<meta name="description" content="Easy Mock 是一个可视化，并且能快速生成模拟数据的持久化服务">
 <meta property="og:type" content="article">
 <meta property="og:title" content="服务器上搭建easy mock">
 <meta property="og:url" content="http://yoursite.com/2019/03/15/服务器上搭建easy-mock/index.html">
 <meta property="og:site_name" content="我的博客">
+<meta property="og:description" content="Easy Mock 是一个可视化，并且能快速生成模拟数据的持久化服务">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-03-15T06:17:28.530Z">
+<meta property="og:image" content="http://yoursite.com/img/1.jpg">
+<meta property="og:updated_time" content="2019-03-19T02:36:19.333Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="服务器上搭建easy mock">
+<meta name="twitter:description" content="Easy Mock 是一个可视化，并且能快速生成模拟数据的持久化服务">
+<meta name="twitter:image" content="http://yoursite.com/img/1.jpg">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -283,7 +288,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">0字</span>
+        <span class="post-count">410字</span>
       </span>
     </span>
 
@@ -310,7 +315,30 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        
+        <p><a href="https://github.com/easy-mock/easy-mock" target="_blank" rel="noopener">Easy Mock </a>是一个可视化，并且能快速生成模拟数据的持久化服务<a id="more"></a></p>
+<h4 id="部署目录"><a href="#部署目录" class="headerlink" title="部署目录"></a>部署目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /opt/programs</span><br><span class="line">cd /opt/programs/</span><br></pre></td></tr></table></figure>
+<h4 id="安装node"><a href="#安装node" class="headerlink" title="安装node"></a>安装node</h4><h5 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo wget https://nodejs.org/dist/v8.4.0/node-v8.4.0-linux-x64.tar.xz</span><br></pre></td></tr></table></figure>
+<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">#解压node</span><br><span class="line">sudo xz -d node-v8.4.0-linux-x64.tar.xz</span><br><span class="line">sudo tar xvf node-v8.4.0-linux-x64.tar</span><br><span class="line">#设置PATH，修改/etc/profile</span><br><span class="line">export PATH=/opt/programs/node-v8.4.0-linux-x64/bin:$PATH</span><br></pre></td></tr></table></figure>
+<h5 id="让设置生效"><a href="#让设置生效" class="headerlink" title="让设置生效"></a>让设置生效</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure>
+<h5 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h5><p><img src="\img\1.jpg" alt="img"></p>
+<h4 id="安装mongodb"><a href="#安装mongodb" class="headerlink" title="安装mongodb"></a>安装mongodb</h4><h5 id="下载-1"><a href="#下载-1" class="headerlink" title="下载"></a>下载</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo curl -O https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-3.0.6.tgz</span><br></pre></td></tr></table></figure>
+<h5 id="安装-1"><a href="#安装-1" class="headerlink" title="安装"></a>安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sudo tar -zxvf mongodb-linux-x86_64-3.0.6.tgz</span><br><span class="line">sudo mv mongodb-linux-x86_64-3.0.6/ /opt/programs/mongodb</span><br><span class="line">export PATH=/opt/programs/mongodb/bin:$PATH</span><br><span class="line"></span><br><span class="line">cd /mongodb</span><br><span class="line">sudo mkdir -p data/db          #创建数据库目录</span><br></pre></td></tr></table></figure>
+<h5 id="命令行中运行-MongoDB-服务"><a href="#命令行中运行-MongoDB-服务" class="headerlink" title="命令行中运行 MongoDB 服务"></a>命令行中运行 MongoDB 服务</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ./mongod -f mongodb.conf     #后台启动</span><br></pre></td></tr></table></figure>
+<h4 id="安装redis"><a href="#安装redis" class="headerlink" title="安装redis"></a>安装redis</h4><p><strong>配置</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sudo vim /etc/resolv.conf </span><br><span class="line"></span><br><span class="line">添加nameserver 8.8.8.8</span><br></pre></td></tr></table></figure>
+<p><strong>解决make命令安装</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install build-essential</span><br></pre></td></tr></table></figure>
+<h5 id="下载-2"><a href="#下载-2" class="headerlink" title="下载"></a>下载</h5><p><a href="http://redis.io/download" target="_blank" rel="noopener">http://redis.io/download</a></p>
+<h5 id="安装-2"><a href="#安装-2" class="headerlink" title="安装"></a>安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">解压</span><br><span class="line">tar zxvf redis-5.0.4.tar.gz</span><br><span class="line">编译</span><br><span class="line">cd /redis-5.0.4</span><br><span class="line">make</span><br><span class="line">编译成功后，进入src文件夹，执行make install进行Redis安装</span><br><span class="line">sudo make install</span><br></pre></td></tr></table></figure>
+<h5 id="后台运行"><a href="#后台运行" class="headerlink" title="后台运行"></a>后台运行</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">a)首先编辑conf文件，将daemonize属性改为yes（表明需要在后台运行）</span><br><span class="line"></span><br><span class="line">cd etc/</span><br><span class="line">Vi redis.conf</span><br><span class="line"></span><br><span class="line">b)再次启动redis服务，并指定启动服务配置文件</span><br><span class="line"></span><br><span class="line">./redis-server ../redis.conf</span><br></pre></td></tr></table></figure>
+<h4 id="安装easy-mock"><a href="#安装easy-mock" class="headerlink" title="安装easy mock"></a>安装easy mock</h4><h5 id="下载-3"><a href="#下载-3" class="headerlink" title="下载"></a>下载</h5><p><a href="https://pan.baidu.com/s/1mAbTXmh4mPhb-tbcMzNJWQ" target="_blank" rel="noopener">https://pan.baidu.com/s/1mAbTXmh4mPhb-tbcMzNJWQ</a></p>
+<p>密码：iw6l</p>
+<h5 id="安装-3"><a href="#安装-3" class="headerlink" title="安装"></a>安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<p>使用node直接运行easy-mock有个问题，easy-mock是在前台运行，如果会话退出了，进程也就退出了。为了保证进程能够一直运行，可以使用pm2后台启动进程。</p>
+<p><strong>安装pm2</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install pm2 -g</span><br></pre></td></tr></table></figure>
+<h5 id="启动easy-mock"><a href="#启动easy-mock" class="headerlink" title="启动easy-mock"></a>启动easy-mock</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pm2 start app.js       #后台启动</span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -321,7 +349,7 @@
         <p><span>本文标题:</span><a href="/2019/03/15/服务器上搭建easy-mock/">服务器上搭建easy mock</a></p>
         <p><span>文章作者:</span><a href="/" title="回到主页">Wei jinzhi</a></p>
         <p><span>发布时间:</span>2019-03-15, 14:17:31</p>
-        <p><span>最后更新:</span>2019-03-15, 14:17:28</p>
+        <p><span>最后更新:</span>2019-03-19, 10:36:19</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2019/03/15/服务器上搭建easy-mock/" title="服务器上搭建easy mock">http://yoursite.com/2019/03/15/服务器上搭建easy-mock/</a>
             <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/03/15/服务器上搭建easy-mock/　　作者: Wei jinzhi" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -351,7 +379,7 @@
     <div id="toc" class="toc-article">
         <strong class="toc-title">文章目录</strong>
         
-            
+            <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#部署目录"><span class="toc-number">1.</span> <span class="toc-text">部署目录</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装node"><span class="toc-number">2.</span> <span class="toc-text">安装node</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#下载"><span class="toc-number">2.1.</span> <span class="toc-text">下载</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#安装"><span class="toc-number">2.2.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#让设置生效"><span class="toc-number">2.3.</span> <span class="toc-text">让设置生效</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#效果"><span class="toc-number">2.4.</span> <span class="toc-text">效果</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装mongodb"><span class="toc-number">3.</span> <span class="toc-text">安装mongodb</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#下载-1"><span class="toc-number">3.1.</span> <span class="toc-text">下载</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#安装-1"><span class="toc-number">3.2.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#命令行中运行-MongoDB-服务"><span class="toc-number">3.3.</span> <span class="toc-text">命令行中运行 MongoDB 服务</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装redis"><span class="toc-number">4.</span> <span class="toc-text">安装redis</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#下载-2"><span class="toc-number">4.1.</span> <span class="toc-text">下载</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#安装-2"><span class="toc-number">4.2.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#后台运行"><span class="toc-number">4.3.</span> <span class="toc-text">后台运行</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#安装easy-mock"><span class="toc-number">5.</span> <span class="toc-text">安装easy mock</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#下载-3"><span class="toc-number">5.1.</span> <span class="toc-text">下载</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#安装-3"><span class="toc-number">5.2.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#启动easy-mock"><span class="toc-number">5.3.</span> <span class="toc-text">启动easy-mock</span></a></li></ol></li></ol>
         
     </div>
     <style>
