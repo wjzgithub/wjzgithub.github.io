@@ -20,7 +20,7 @@
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="我的博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/page/2/index.html">
 <meta property="og:site_name" content="我的博客">
 <meta property="og:locale" content="default">
 <meta name="twitter:card" content="summary">
@@ -264,11 +264,11 @@
 </nav>
       <div class="body-wrap">
   
-    <article id="post-权限-Shiro" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-springboot整合spring-security-oauth2.0" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/05/22/权限-Shiro/" class="article-date">
-      <time datetime="2019-05-21T16:00:00.000Z" itemprop="datePublished">2019-05-22</time>
+      <a href="/2019/03/06/springboot整合spring-security-oauth2.0/" class="article-date">
+      <time datetime="2019-03-06T02:15:00.000Z" itemprop="datePublished">2019-03-06</time>
 </a>
 
 
@@ -283,7 +283,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/22/权限-Shiro/">权限-Shiro</a>
+      <a class="article-title" href="/2019/03/06/springboot整合spring-security-oauth2.0/">springboot整合spring security oauth2.0</a>
     </h1>
   
 
@@ -293,7 +293,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">380字</span>
+        <span class="post-count">2.1k字</span>
       </span>
     </span>
 
@@ -302,7 +302,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
+        <span class="post-count">11分</span>
       </span>
     </span>
 </div>
@@ -313,7 +313,96 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>​        shiro安全框架是目前为止作为登录注册最常用的框架，因为它十分的强大简单，提供了认证、授权、加密和会话管理等功能 。
+              <blockquote>
+<p>在开始之前，特别强调一下OAuth和SSO的区别：</p>
+<p>OAuth主要用来解决系统和系统间的身份认证问题，比如A、B、C三个独立部署的微服务系统均以REST对外提供服务，现在为A系统增加一些限制，只让B系统调用，而禁止C系统调用；</p>
+<p>SSO主要用来帮助用户减少在相通的平台重复输入用户名和密码的登陆操作，例如：用户U在A系统上输入用户名密码之后完成登陆操作，在同一个浏览器的另一个页面打开B系统时可以直接进入系统而不用再次输入用户名密码点击登陆;</p>
+</blockquote>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/权限认证/">权限认证</a>
+    </div>
+
+
+      
+      
+        <p class="article-more-link">
+          <a href="/2019/03/06/springboot整合spring-security-oauth2.0/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-单点登陆之CAS" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/02/25/单点登陆之CAS/" class="article-date">
+      <time datetime="2019-02-25T09:03:00.000Z" itemprop="datePublished">2019-02-25</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/25/单点登陆之CAS/">单点登陆之CAS</a>
+    </h1>
+  
+
+		
+			<div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">2.7k字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">14分</span>
+      </span>
+    </span>
+</div>
+		
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p><strong>什么是单点登陆？</strong></p>
+<p>​    单点登录（Single Sign On），简称为 SSO，是目前比较流行的企业业务整合的解决方案之一。SSO的定义是在多个应用系统中，用户只需要登录一次就可以访问所有相互信任的应用系统。
           
       
     </p></div>
@@ -329,7 +418,7 @@
       
       
         <p class="article-more-link">
-          <a href="/2019/05/22/权限-Shiro/#more">more >></a>
+          <a href="/2019/02/25/单点登陆之CAS/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -348,11 +437,11 @@
 
 
   
-    <article id="post-callHelper" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-excel下载升级" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/05/21/callHelper/" class="article-date">
-      <time datetime="2019-05-20T16:00:00.000Z" itemprop="datePublished">2019-05-21</time>
+      <a href="/2019/02/11/excel下载升级/" class="article-date">
+      <time datetime="2019-02-11T05:35:00.000Z" itemprop="datePublished">2019-02-11</time>
 </a>
 
 
@@ -367,7 +456,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/21/callHelper/">callHelper</a>
+      <a class="article-title" href="/2019/02/11/excel下载升级/">excel下载升级</a>
     </h1>
   
 
@@ -377,7 +466,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">2.3k字</span>
+        <span class="post-count">843字</span>
       </span>
     </span>
 
@@ -386,7 +475,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">13分</span>
+        <span class="post-count">4分</span>
       </span>
     </span>
 </div>
@@ -397,7 +486,176 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>callHelper类：一个服务获取另一个服务的中间类
+              <p>导出数据（zip格式）</p>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/excel/">excel</a>
+    </div>
+
+
+      
+      
+        <p class="article-more-link">
+          <a href="/2019/02/11/excel下载升级/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-excel下载" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2019/01/02/excel下载/" class="article-date">
+      <time datetime="2019-01-02T12:03:00.000Z" itemprop="datePublished">2019-01-02</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/01/02/excel下载/">excel下载</a>
+    </h1>
+  
+
+		
+			<div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">393字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">2分</span>
+      </span>
+    </span>
+</div>
+		
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>导出数据（excel格式）</p>
+<h5 id="添加依赖包"><a href="#添加依赖包" class="headerlink" title="添加依赖包"></a>添加依赖包</h5>
+          
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/excel/">excel</a>
+    </div>
+
+
+      
+      
+        <p class="article-more-link">
+          <a href="/2019/01/02/excel下载/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-kafka学习" class="article article-type-post" itemscope="" itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/12/27/kafka学习/" class="article-date">
+      <time datetime="2018-12-27T07:13:31.000Z" itemprop="datePublished">2018-12-27</time>
+</a>
+
+
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/27/kafka学习/">kafka学习</a>
+    </h1>
+  
+
+		
+			<div style="margin-top:10px;">
+    <span class="post-time">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-keyboard-o"></i>
+        <span class="post-meta-item-text">  字数统计: </span>
+        <span class="post-count">2.9k字</span>
+      </span>
+    </span>
+
+    <span class="post-time">
+      &nbsp; | &nbsp;
+      <span class="post-meta-item-icon">
+        <i class="fa fa-hourglass-half"></i>
+        <span class="post-meta-item-text">  阅读时长: </span>
+        <span class="post-count">12分</span>
+      </span>
+    </span>
+</div>
+		
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <p>​    Kafka 是一个分布式的，可划分的，多订阅者,冗余备份的持久性的日志服务。以可水平扩 展和高吞吐率而被广泛使用。它主要用于处理活跃的流式数据。
           
       
     </p></div>
@@ -405,11 +663,15 @@
     <div class="article-info article-info-index">
       
       
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/kafka/">kafka</a>
+    </div>
+
 
       
       
         <p class="article-more-link">
-          <a href="/2019/05/21/callHelper/#more">more >></a>
+          <a href="/2018/12/27/kafka学习/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -428,11 +690,11 @@
 
 
   
-    <article id="post-文件处理" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-kafka安装" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/04/26/文件处理/" class="article-date">
-      <time datetime="2019-04-25T16:00:00.000Z" itemprop="datePublished">2019-04-26</time>
+      <a href="/2018/12/27/kafka安装/" class="article-date">
+      <time datetime="2018-12-27T07:05:00.000Z" itemprop="datePublished">2018-12-27</time>
 </a>
 
 
@@ -447,232 +709,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/26/文件处理/">文件处理</a>
-    </h1>
-  
-
-		
-			<div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">0字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
-      </span>
-    </span>
-</div>
-		
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-zip批量导入" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/04/25/zip批量导入/" class="article-date">
-      <time datetime="2019-04-25T07:24:00.000Z" itemprop="datePublished">2019-04-25</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/25/zip批量导入/">zip批量导入</a>
-    </h1>
-  
-
-		
-			<div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">0字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
-      </span>
-    </span>
-</div>
-		
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-参数验证" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/04/25/参数验证/" class="article-date">
-      <time datetime="2019-04-25T07:23:00.000Z" itemprop="datePublished">2019-04-25</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/25/参数验证/">参数验证</a>
-    </h1>
-  
-
-		
-			<div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">0字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
-      </span>
-    </span>
-</div>
-		
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Aspect拦截器" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/04/25/Aspect拦截器/" class="article-date">
-      <time datetime="2019-04-25T05:27:00.000Z" itemprop="datePublished">2019-04-25</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/25/Aspect拦截器/">Aspect拦截器</a>
+      <a class="article-title" href="/2018/12/27/kafka安装/">Kafka安装</a>
     </h1>
   
 
@@ -702,178 +739,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <p>拦截器的概念：</p>
-<p>java里的拦截器是动态拦截Action调用的对象，它提供了一种机制可以使开发者在一个Action执行的前后执行一段代码，也可以在一个Action<br>执行前阻止其执行，同时也提供了一种可以提取Action中可重用部分代码的方式。在AOP中，拦截器用于在某个方法或者字段被访问之前，进行拦截<br>然后再之前或者之后加入某些操作。
+              <p>下载jdk linux版本<a href="https://pan.baidu.com/s/1hqKKL3e" target="_blank" rel="noopener">https://pan.baidu.com/s/1hqKKL3e</a></p>
           
-      
-    </p></div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2019/04/25/Aspect拦截器/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-调用网关" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/03/25/调用网关/" class="article-date">
-      <time datetime="2019-03-25T02:25:00.000Z" itemprop="datePublished">2019-03-25</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/25/调用网关/">调用阿里云网关</a>
-    </h1>
-  
-
-		
-			<div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">152字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
-      </span>
-    </span>
-</div>
-		
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>首先讲一下使用API网关的原因：</p>
-<pre><code>大部分公司都会自己的API进行加密处理，或token验证，他人可能不能破解你的加密方式，或token验证方式，但进行重放攻击，频繁的发送请求，造成服务器的负荷。还有一些公司的API根本没有做加密验证和token，就相当于裸奔的服务器，任何人只要抓取接口就就可以调用API。这些都是我们要使用API网关，API网关可以防止这些漏洞。
-</code></pre>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2019/03/25/调用网关/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-kafka原理剖析与业务应用" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/03/19/kafka原理剖析与业务应用/" class="article-date">
-      <time datetime="2019-03-19T08:42:00.000Z" itemprop="datePublished">2019-03-19</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/19/kafka原理剖析与业务应用/">kafka原理剖析与业务应用</a>
-    </h1>
-  
-
-		
-			<div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">0字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
-      </span>
-    </span>
-</div>
-		
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        
-
-	<div class="row">
-    <embed src="\pdf\kafka原理剖析与业务应用.pdf" width="100%" height="550" type="application/pdf">
-	</div>
-
-
-
-
       
     </div>
     
@@ -887,84 +754,8 @@
 
       
       
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-服务器上搭建easy-mock" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/03/15/服务器上搭建easy-mock/" class="article-date">
-      <time datetime="2019-03-15T06:17:31.000Z" itemprop="datePublished">2019-03-15</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/15/服务器上搭建easy-mock/">服务器上搭建easy mock</a>
-    </h1>
-  
-
-		
-			<div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">410字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
-      </span>
-    </span>
-</div>
-		
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p><a href="https://github.com/easy-mock/easy-mock" target="_blank" rel="noopener">Easy Mock </a>是一个可视化，并且能快速生成模拟数据的持久化服务
-          
-      
-    </p></div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
         <p class="article-more-link">
-          <a href="/2019/03/15/服务器上搭建easy-mock/#more">more >></a>
+          <a href="/2018/12/27/kafka安装/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -983,11 +774,11 @@
 
 
   
-    <article id="post-Markdown" class="article article-type-post" itemscope="" itemprop="blogPost">
+    <article id="post-Thrift" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2019/03/07/Markdown/" class="article-date">
-      <time datetime="2019-03-07T07:23:00.000Z" itemprop="datePublished">2019-03-07</time>
+      <a href="/2018/12/27/Thrift/" class="article-date">
+      <time datetime="2018-12-27T06:58:00.000Z" itemprop="datePublished">2018-12-27</time>
 </a>
 
 
@@ -1002,7 +793,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/07/Markdown/">markdown语法介绍</a>
+      <a class="article-title" href="/2018/12/27/Thrift/">Thrift学习</a>
     </h1>
   
 
@@ -1012,7 +803,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">0字</span>
+        <span class="post-count">1.7k字</span>
       </span>
     </span>
 
@@ -1021,7 +812,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
+        <span class="post-count">6分</span>
       </span>
     </span>
 </div>
@@ -1032,23 +823,20 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        
-
-	<div class="row">
-    <embed src="\pdf\Markdown.pdf" width="100%" height="550" type="application/pdf">
-	</div>
-
-
-
-
+              <p>​    thrift是一种c/s的架构体系.在最上层是用户自行实现的业务逻辑代码.第二层是由thrift编译器自动生成的代码，主要用于结构化数据的解析，发送和接收。<strong>TServer</strong>主要任务是高效的接受客户端请求，并将请求转发给<strong>Processor</strong>处理。
+          
       
-    </div>
+    </p></div>
     
     <div class="article-info article-info-index">
       
       
 
       
+      
+        <p class="article-more-link">
+          <a href="/2018/12/27/Thrift/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
@@ -1068,7 +856,7 @@
   
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
     </nav>
   
 </div>

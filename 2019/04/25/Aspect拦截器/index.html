@@ -15,14 +15,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+<meta name="description" content="拦截器的概念： java里的拦截器是动态拦截Action调用的对象，它提供了一种机制可以使开发者在一个Action执行的前后执行一段代码，也可以在一个Action执行前阻止其执行，同时也提供了一种可以提取Action中可重用部分代码的方式。在AOP中，拦截器用于在某个方法或者字段被访问之前，进行拦截然后再之前或者之后加入某些操作。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Aspect拦截器">
+<meta property="og:url" content="http://yoursite.com/2019/04/25/Aspect拦截器/index.html">
 <meta property="og:site_name" content="我的博客">
+<meta property="og:description" content="拦截器的概念： java里的拦截器是动态拦截Action调用的对象，它提供了一种机制可以使开发者在一个Action执行的前后执行一段代码，也可以在一个Action执行前阻止其执行，同时也提供了一种可以提取Action中可重用部分代码的方式。在AOP中，拦截器用于在某个方法或者字段被访问之前，进行拦截然后再之前或者之后加入某些操作。">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-29T08:15:50.625Z">
+<meta property="og:updated_time" content="2019-04-25T08:14:53.483Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
+<meta name="twitter:title" content="Aspect拦截器">
+<meta name="twitter:description" content="拦截器的概念： java里的拦截器是动态拦截Action调用的对象，它提供了一种机制可以使开发者在一个Action执行的前后执行一段代码，也可以在一个Action执行前阻止其执行，同时也提供了一种可以提取Action中可重用部分代码的方式。在AOP中，拦截器用于在某个方法或者字段被访问之前，进行拦截然后再之前或者之后加入某些操作。">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -54,7 +57,7 @@
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
 
-<title>tags | 我的博客</title>
+<title>Aspect拦截器 | 我的博客</title>
 
 <script src="//cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script src="//cdn.bootcss.com/clipboard.js/1.5.10/clipboard.min.js"></script>
@@ -64,7 +67,7 @@
         fancybox: true,
         animate: true,
         isHome: false,
-        isPost: false,
+        isPost: true,
         isArchive: false,
         isTag: false,
         isCategory: false,
@@ -258,11 +261,11 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我">
 </nav>
-      <div class="body-wrap"><article id="page-" class="article article-type-page" itemscope="" itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Aspect拦截器" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/tags/index.html" class="article-date">
-      <time datetime="2018-12-29T08:15:50.000Z" itemprop="datePublished">2018-12-29</time>
+      <a href="/2019/04/25/Aspect拦截器/" class="article-date">
+      <time datetime="2019-04-25T05:27:00.000Z" itemprop="datePublished">2019-04-25</time>
 </a>
 
 
@@ -277,7 +280,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      tags
+      Aspect拦截器
     </h1>
   
 
@@ -287,7 +290,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-keyboard-o"></i>
         <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">0字</span>
+        <span class="post-count">591字</span>
       </span>
     </span>
 
@@ -296,7 +299,7 @@
       <span class="post-meta-item-icon">
         <i class="fa fa-hourglass-half"></i>
         <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
+        <span class="post-count">2分</span>
       </span>
     </span>
 </div>
@@ -314,96 +317,85 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <style>
-    .article-meta { display: none; }
-    #container .article .article-title { padding-right: 0; }
-    .article-header {
-        padding: 0;
-        padding-top: 26px;
-        border-left: none;
-        text-align: center;
-    }
-    .article-header:hover { border-left: none; }
-    .article-title { font-size: 1.6em }
-    .article-entry hr { margin: 0;}
-    .article-meta,
-    #container .article-info-post.article-info { display: none;}
-    #container .article .article-title { padding: 0; }
-</style>
+        <p>拦截器的概念：</p>
+<p>java里的拦截器是动态拦截Action调用的对象，它提供了一种机制可以使开发者在一个Action执行的前后执行一段代码，也可以在一个Action<br>执行前阻止其执行，同时也提供了一种可以提取Action中可重用部分代码的方式。在AOP中，拦截器用于在某个方法或者字段被访问之前，进行拦截<br>然后再之前或者之后加入某些操作。<a id="more"></a></p>
+<p>拦截器与过滤器的区别：</p>
+<ol>
+<li>拦截器是基于Java反射机制来实现的，过滤器是基于函数回调实现的</li>
+<li>拦截器不依赖于servlet容器，过滤器依赖于servlet容器</li>
+<li>拦截器只对Action起作用，过滤器对所有请求起作用</li>
+<li>拦截器可以访问Action上下文和值栈中的对象，过滤器不能</li>
+<li>在Action生命周期中，拦截器可以多次调用，过滤器只能在容器初始化时调用一次</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@Aspect:作用是把当前类标识为一个切面供容器读取</span><br><span class="line">@Pointcut：Pointcut是植入Advice的触发条件。每个Pointcut的定义包括2部分，一是表达式，二是方法签名。方法签名必须是 public及void型。可以将Pointcut中的方法看作是一个被Advice引用的助记符，因为表达式不直观，因此我们可以通过方法签名的方式为 此表达式命名。因此Pointcut中的方法只需要方法签名，而不需要在方法体内编写实际代码。</span><br><span class="line">@Around：环绕增强，相当于MethodInterceptor</span><br><span class="line">@AfterReturning：后置增强，相当于AfterReturningAdvice，方法正常退出时执行</span><br><span class="line">@Before：标识一个前置增强方法，相当于BeforeAdvice的功能，相似功能的还有</span><br><span class="line">@AfterThrowing：异常抛出增强，相当于ThrowsAdvice</span><br><span class="line">@After: final增强，不管是抛出异常或者正常退出都会执行</span><br></pre></td></tr></table></figure>
+<p>基本用法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">拦截类上要加@Aspect@Component</span><br><span class="line"></span><br><span class="line">@Around(value = &quot;execution(intellif.dto.JsonObject intellif.controllers.PersonDetailController.getPerson(..))&quot;)</span><br><span class="line">public JsonObject getPerson(ProceedingJoinPoint joinPoint) &#123;</span><br><span class="line">	//获取原始返回值</span><br><span class="line">    jsonObject = (JsonObject) pjp.proceed();</span><br><span class="line">    //访问目标方法的参数</span><br><span class="line">    Object[] args = point.getArgs();</span><br><span class="line">    if (args != null &amp;&amp; args.length &gt; 0 &amp;&amp; args[0].getClass() == String.class) &#123;</span><br><span class="line">    	args[0] = &quot;改变后的参数1&quot;;</span><br><span class="line">    &#125;</span><br><span class="line">    //用改变后的参数执行目标方法</span><br><span class="line">    Object returnValue = point.proceed(args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-    <!-- Tag Cloud Page -->
-    <hr>
-<br>
-<ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/excel/">excel</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/kafka/">kafka</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/权限认证/">权限认证</a><span class="category-list-count">3</span></li></ul>
-
-<p class="count"></p>
-
-<div class="tags">
-    
-</div>
-<style>
-    .category-list li{
-        display: inline-block;
-        margin: 0 1em .5em 0;
-        padding: 4px;
-        border: 1px solid lightgray;
-        font-size: 1.2rem;
-    }
-    .category-list a { color: gray; }
-    .category-list-item:hover a {
-        color: gray;
-        text-decoration: none;
-    }
-    .category-list-count {
-        margin-left: 2px;
-        font-size: .9rem;
-    }
-    .article-entry ul li:before{ display: none; }
-    .article-inner { text-align: center; }
-    .tags {
-        max-width: 42em;
-        margin: 2em auto;
-        margin-top: 0em;
-    }
-    .tags a {
-        margin-right: 1em;
-        line-height: 65px;
-        border-bottom: 1px solid gray;
-        white-space: nowrap;
-        transition: border-bottom .5s;
-    }
-    .tags a:hover {
-        border-bottom: 3px dotted gray;
-        text-decoration: none;
-    }
-    #count > span {
-        margin: auto .2em;
-        font-weight: bold;
-    }
-</style>
-
-<!-- Count tags and categories -->
-<p id="count">
-        已有<span><script>document.write($(".category-list-item").length)</script></span>个分类，
-        共计<span><script>document.write($(".tags > a").length)</script></span>个标签
-</p>
-<script>
-    $('#count').appendTo('.count');
-</script>
-
-          
-        
       
     </div>
     
   </div>
   
     
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2019/04/25/Aspect拦截器/">Aspect拦截器</a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Wei jinzhi</a></p>
+        <p><span>发布时间:</span>2019-04-25, 13:27:00</p>
+        <p><span>最后更新:</span>2019-04-25, 16:14:53</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2019/04/25/Aspect拦截器/" title="Aspect拦截器">http://yoursite.com/2019/04/25/Aspect拦截器/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/04/25/Aspect拦截器/　　作者: Wei jinzhi" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
 
+
+
+    <nav id="article-nav">
+        
+            <div id="article-nav-newer" class="article-nav-title">
+                <a href="/2019/04/25/参数验证/">
+                    参数验证
+                </a>
+            </div>
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2019/03/25/调用网关/">
+                    调用阿里云网关
+                </a>
+            </div>
+        
+    </nav>
 
   
 </article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
 
 
 
@@ -421,7 +413,7 @@
         </div>
         <script>
             window._bd_share_config={
-                "common":{"bdSnsKey":{},"bdText":"tags　| 我的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+                "common":{"bdSnsKey":{},"bdText":"Aspect拦截器　| 我的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
         </script>
     
 
@@ -436,6 +428,26 @@
 
     
 
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2019/04/25/参数验证/" title="上一篇: 参数验证">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2019/03/25/调用网关/" title="下一篇: 调用阿里云网关">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/05/22/权限-Shiro/">权限-Shiro</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/21/callHelper/">callHelper</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/26/文件处理/">文件处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/25/zip批量导入/">zip批量导入</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/25/参数验证/">参数验证</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/25/Aspect拦截器/">Aspect拦截器</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/25/调用网关/">调用阿里云网关</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/19/kafka原理剖析与业务应用/">kafka原理剖析与业务应用</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/15/服务器上搭建easy-mock/">服务器上搭建easy mock</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/07/Markdown/">markdown语法介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/06/springboot整合spring-security-oauth2.0/">springboot整合spring security oauth2.0</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/25/单点登陆之CAS/">单点登陆之CAS</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/11/excel下载升级/">excel下载升级</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/excel下载/">excel下载</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/kafka学习/">kafka学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/kafka安装/">Kafka安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/Thrift/">Thrift学习</a></li></ul>
 
 
 
