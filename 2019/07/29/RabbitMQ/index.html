@@ -14,17 +14,20 @@
 <meta name="author" content="Wei jinzhi">
 
 
-    
-    
 
-
-<meta property="og:type" content="website">
+<meta name="description" content="RabbitMQ简介在介绍RabbitMQ之前实现要介绍一下MQ，MQ是什么？ MQ全称是Message Queue，可以理解为消息队列的意思，简单来说就是消息以管道的方式进行传递。 RabbitMQ是一个实现了AMQP（Advanced Message Queuing Protocol）高级消息队列协议的消息队列服务，用Erlang语言的。 使用场景在我们秒杀抢购商品的时候，系统会提醒我们稍等排">
+<meta property="og:type" content="article">
 <meta property="og:title" content="我的博客">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/2019/07/29/RabbitMQ/index.html">
 <meta property="og:site_name" content="我的博客">
+<meta property="og:description" content="RabbitMQ简介在介绍RabbitMQ之前实现要介绍一下MQ，MQ是什么？ MQ全称是Message Queue，可以理解为消息队列的意思，简单来说就是消息以管道的方式进行传递。 RabbitMQ是一个实现了AMQP（Advanced Message Queuing Protocol）高级消息队列协议的消息队列服务，用Erlang语言的。 使用场景在我们秒杀抢购商品的时候，系统会提醒我们稍等排">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://icdn.apigo.cn/blog/rabbit-producer.gif">
+<meta property="og:updated_time" content="2019-07-29T09:45:42.903Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="我的博客">
+<meta name="twitter:description" content="RabbitMQ简介在介绍RabbitMQ之前实现要介绍一下MQ，MQ是什么？ MQ全称是Message Queue，可以理解为消息队列的意思，简单来说就是消息以管道的方式进行传递。 RabbitMQ是一个实现了AMQP（Advanced Message Queuing Protocol）高级消息队列协议的消息队列服务，用Erlang语言的。 使用场景在我们秒杀抢购商品的时候，系统会提醒我们稍等排">
+<meta name="twitter:image" content="http://icdn.apigo.cn/blog/rabbit-producer.gif">
 
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
@@ -52,8 +55,6 @@
 <link rel="stylesheet" href="/css/style.css">
 
 
-    <style> .article { opacity: 0;} </style>
-
 
 <link href="//cdn.bootcss.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
 
@@ -67,8 +68,8 @@
     var yiliaConfig = {
         fancybox: true,
         animate: true,
-        isHome: true,
-        isPost: false,
+        isHome: false,
+        isPost: true,
         isArchive: false,
         isTag: false,
         isCategory: false,
@@ -262,9 +263,7 @@
     </div>
     <link class="menu-list" tags="标签" friends="友情链接" about="关于我">
 </nav>
-      <div class="body-wrap">
-  
-    <article id="post-RabbitMQ" class="article article-type-post" itemscope="" itemprop="blogPost">
+      <div class="body-wrap"><article id="post-RabbitMQ" class="article article-type-post" itemscope="" itemprop="blogPost">
   
     <div class="article-meta">
       <a href="/2019/07/29/RabbitMQ/" class="article-date">
@@ -359,757 +358,119 @@
       
     </div>
     
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
   </div>
   
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-使用Spring-Social开发第三方登陆" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/06/13/使用Spring-Social开发第三方登陆/" class="article-date">
-      <time datetime="2019-06-13T05:56:00.000Z" itemprop="datePublished">2019-06-13</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
     
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/13/使用Spring-Social开发第三方登陆/">使用Spring Social开发第三方登陆</a>
-    </h1>
-  
-
-		
-			<div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">39字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
-      </span>
-    </span>
-</div>
-		
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p><img src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\1560405350588.png" alt="1560405350588"></p>
-<h2 id="OAuth协议中的授权模式"><a href="#OAuth协议中的授权模式" class="headerlink" title="OAuth协议中的授权模式"></a>OAuth协议中的授权模式</h2><p>1、授权码模式（authorization code）</p>
-<p>2、简化模式（implicit）</p>
-<p>3、密码模式（resource owner password credentials）</p>
-<p>4、客户端模式（client credentials）</p>
-<p><img src="C:\Users\Lenovo\AppData\Roaming\Typora\typora-user-images\1560476348623.png" alt="1560476348623"></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/权限认证/">权限认证</a>
-    </div>
-
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-权限-Shiro" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/05/22/权限-Shiro/" class="article-date">
-      <time datetime="2019-05-21T16:00:00.000Z" itemprop="datePublished">2019-05-22</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/22/权限-Shiro/">权限-Shiro</a>
-    </h1>
-  
-
-		
-			<div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">1.4k字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">5分</span>
-      </span>
-    </span>
-</div>
-		
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>​        shiro安全框架是目前为止作为登录注册最常用的框架，因为它十分的强大简单，提供了认证、授权、加密和会话管理等功能 。
-          
-      
-    </p></div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/权限认证/">权限认证</a>
-    </div>
-
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2019/05/22/权限-Shiro/#more">more >></a>
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2019/07/29/RabbitMQ/"></a></p>
+        <p><span>文章作者:</span><a href="/" title="回到主页">Wei jinzhi</a></p>
+        <p><span>发布时间:</span>2019-07-29, 17:45:42</p>
+        <p><span>最后更新:</span>2019-07-29, 17:45:42</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2019/07/29/RabbitMQ/" title="">http://yoursite.com/2019/07/29/RabbitMQ/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://yoursite.com/2019/07/29/RabbitMQ/　　作者: Wei jinzhi" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-callHelper" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/05/21/callHelper/" class="article-date">
-      <time datetime="2019-05-20T16:00:00.000Z" itemprop="datePublished">2019-05-21</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/21/callHelper/">callHelper</a>
-    </h1>
-  
-
-		
-			<div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">2.3k字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">13分</span>
-      </span>
-    </span>
-</div>
-		
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>callHelper类：一个服务获取另一个服务的中间类
-          
-      
-    </p></div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2019/05/21/callHelper/#more">more >></a>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/" title="CC BY-NC-SA 4.0 International" target="_blank">"署名-非商用-相同方式共享 4.0"</a> 转载请保留原文链接及作者。
         </p>
-      
-      <div class="clearfix"></div>
     </div>
-    
-  </div>
-  
-</article>
 
 
 
-
-
-
-
-
-
-  
-    <article id="post-文件处理" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/04/26/文件处理/" class="article-date">
-      <time datetime="2019-04-25T16:00:00.000Z" itemprop="datePublished">2019-04-26</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
+    <nav id="article-nav">
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/26/文件处理/">文件处理</a>
-    </h1>
-  
-
-		
-			<div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">0字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
-      </span>
-    </span>
-</div>
-		
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
         
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-zip批量导入" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/04/25/zip批量导入/" class="article-date">
-      <time datetime="2019-04-25T07:24:00.000Z" itemprop="datePublished">2019-04-25</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2019/06/13/使用Spring-Social开发第三方登陆/">
+                    使用Spring Social开发第三方登陆
+                </a>
+            </div>
         
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/25/zip批量导入/">zip批量导入</a>
-    </h1>
-  
-
-		
-			<div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">0字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
-      </span>
-    </span>
-</div>
-		
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-参数验证" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/04/25/参数验证/" class="article-date">
-      <time datetime="2019-04-25T07:23:00.000Z" itemprop="datePublished">2019-04-25</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/25/参数验证/">参数验证</a>
-    </h1>
-  
-
-		
-			<div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">0字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
-      </span>
-    </span>
-</div>
-		
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-Aspect拦截器" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/04/25/Aspect拦截器/" class="article-date">
-      <time datetime="2019-04-25T05:27:00.000Z" itemprop="datePublished">2019-04-25</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/25/Aspect拦截器/">Aspect拦截器</a>
-    </h1>
-  
-
-		
-			<div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">591字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">2分</span>
-      </span>
-    </span>
-</div>
-		
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>拦截器的概念：</p>
-<p>java里的拦截器是动态拦截Action调用的对象，它提供了一种机制可以使开发者在一个Action执行的前后执行一段代码，也可以在一个Action<br>执行前阻止其执行，同时也提供了一种可以提取Action中可重用部分代码的方式。在AOP中，拦截器用于在某个方法或者字段被访问之前，进行拦截<br>然后再之前或者之后加入某些操作。
-          
-      
-    </p></div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2019/04/25/Aspect拦截器/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-调用网关" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/03/25/调用网关/" class="article-date">
-      <time datetime="2019-03-25T02:25:00.000Z" itemprop="datePublished">2019-03-25</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/25/调用网关/">调用阿里云网关</a>
-    </h1>
-  
-
-		
-			<div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">152字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
-      </span>
-    </span>
-</div>
-		
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-              <p>首先讲一下使用API网关的原因：</p>
-<pre><code>大部分公司都会自己的API进行加密处理，或token验证，他人可能不能破解你的加密方式，或token验证方式，但进行重放攻击，频繁的发送请求，造成服务器的负荷。还有一些公司的API根本没有做加密验证和token，就相当于裸奔的服务器，任何人只要抓取接口就就可以调用API。这些都是我们要使用API网关，API网关可以防止这些漏洞。
-</code></pre>
-          
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-
-      
-      
-        <p class="article-more-link">
-          <a href="/2019/03/25/调用网关/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-kafka原理剖析与业务应用" class="article article-type-post" itemscope="" itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2019/03/19/kafka原理剖析与业务应用/" class="article-date">
-      <time datetime="2019-03-19T08:42:00.000Z" itemprop="datePublished">2019-03-19</time>
-</a>
-
-
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/03/19/kafka原理剖析与业务应用/">kafka原理剖析与业务应用</a>
-    </h1>
-  
-
-		
-			<div style="margin-top:10px;">
-    <span class="post-time">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-keyboard-o"></i>
-        <span class="post-meta-item-text">  字数统计: </span>
-        <span class="post-count">0字</span>
-      </span>
-    </span>
-
-    <span class="post-time">
-      &nbsp; | &nbsp;
-      <span class="post-meta-item-icon">
-        <i class="fa fa-hourglass-half"></i>
-        <span class="post-meta-item-text">  阅读时长: </span>
-        <span class="post-count">1分</span>
-      </span>
-    </span>
-</div>
-		
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        
-
-	<div class="row">
-    <embed src="\pdf\kafka原理剖析与业务应用.pdf" width="100%" height="550" type="application/pdf">
-	</div>
-
-
-
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/kafka/">kafka</a>
-    </div>
-
-
-      
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
+
   
+</article>
+
+    <div id="toc" class="toc-article">
+        <strong class="toc-title">文章目录</strong>
+        
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#RabbitMQ简介"><span class="toc-number">1.</span> <span class="toc-text">RabbitMQ简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#使用场景"><span class="toc-number">2.</span> <span class="toc-text">使用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#为什么选择RabbitMQ"><span class="toc-number">3.</span> <span class="toc-text">为什么选择RabbitMQ</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#工作机制"><span class="toc-number">4.</span> <span class="toc-text">工作机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#你必须知道的Rabbit"><span class="toc-number">5.</span> <span class="toc-text">你必须知道的Rabbit</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#消息持久化"><span class="toc-number">6.</span> <span class="toc-text">消息持久化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#虚拟主机"><span class="toc-number">7.</span> <span class="toc-text">虚拟主机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#环境搭建"><span class="toc-number">8.</span> <span class="toc-text">环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#下载erlang-solution"><span class="toc-number">8.1.</span> <span class="toc-text">下载erlang solution</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装erlang"><span class="toc-number">8.2.</span> <span class="toc-text">安装erlang</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#下载rabbitMQ"><span class="toc-number">8.3.</span> <span class="toc-text">下载rabbitMQ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装rabbitMQ"><span class="toc-number">8.4.</span> <span class="toc-text">安装rabbitMQ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开启web端管理访问（非必须，如果要开启，需要先开启允许远程访问）"><span class="toc-number">8.5.</span> <span class="toc-text">开启web端管理访问（非必须，如果要开启，需要先开启允许远程访问）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装消息延迟插件"><span class="toc-number">8.6.</span> <span class="toc-text">安装消息延迟插件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启动rabbitMQ"><span class="toc-number">8.7.</span> <span class="toc-text">启动rabbitMQ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用web访问"><span class="toc-number">8.8.</span> <span class="toc-text">使用web访问</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RabbitMQ命令"><span class="toc-number">9.</span> <span class="toc-text">RabbitMQ命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建VirtualHost"><span class="toc-number">9.1.</span> <span class="toc-text">创建VirtualHost</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建用户并配置权限"><span class="toc-number">9.2.</span> <span class="toc-text">创建用户并配置权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置角色"><span class="toc-number">9.3.</span> <span class="toc-text">配置角色</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Springboot应用"><span class="toc-number">10.</span> <span class="toc-text">Springboot应用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#pom配置文件"><span class="toc-number">10.1.</span> <span class="toc-text">pom配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#application配置文件"><span class="toc-number">10.2.</span> <span class="toc-text">application配置文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#启动注入bean-注入两个MQ"><span class="toc-number">10.3.</span> <span class="toc-text">启动注入bean(注入两个MQ)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#监听"><span class="toc-number">10.4.</span> <span class="toc-text">监听</span></a></li></ol></li></ol>
+        
+    </div>
+    <style>
+        .left-col .switch-btn,
+        .left-col .switch-area {
+            display: none;
+        }
+        .toc-level-3 i,
+        .toc-level-3 ol {
+            display: none !important;
+        }
+    </style>
+
+    <input type="button" id="tocButton" value="隐藏目录" title="点击按钮隐藏或者显示文章目录">
+
+    <script>
+        yiliaConfig.toc = ["隐藏目录", "显示目录", !!"false"];
+    </script>
+
+
+
+    
+<div class="share">
+    
+        <div class="bdsharebuttonbox">
+            <a href="#" class="fa fa-twitter bds_twi" data-cmd="twi" title="分享到推特"></a>
+            <a href="#" class="fa fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+            <a href="#" class="fa fa-qq bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+            <a href="#" class="fa fa-files-o bds_copy" data-cmd="copy" title="复制网址"></a>
+            <a href="#" class="fa fa fa-envelope-o bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+            <a href="#" class="fa fa-weixin bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+            <a href="#" class="fa fa-share-alt bds_more" data-cmd="more"></a>
+        </div>
+        <script>
+            window._bd_share_config={
+                "common":{"bdSnsKey":{},"bdText":"　| 我的博客　","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+        </script>
+    
+
+    
+</div>
+
+
+
+
+
+
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2019/06/13/使用Spring-Social开发第三方登陆/" title="下一篇: 使用Spring Social开发第三方登陆">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/07/29/RabbitMQ/">RabbitMQ</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/13/使用Spring-Social开发第三方登陆/">使用Spring Social开发第三方登陆</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/22/权限-Shiro/">权限-Shiro</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/05/21/callHelper/">callHelper</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/26/文件处理/">文件处理</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/25/zip批量导入/">zip批量导入</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/25/参数验证/">参数验证</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/04/25/Aspect拦截器/">Aspect拦截器</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/25/调用网关/">调用阿里云网关</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/19/kafka原理剖析与业务应用/">kafka原理剖析与业务应用</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/15/服务器上搭建easy-mock/">服务器上搭建easy mock</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/07/Markdown/">markdown语法介绍</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/06/springboot整合spring-security-oauth2.0/">springboot整合spring security oauth2.0</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/25/单点登陆之CAS/">单点登陆之CAS</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/02/11/excel下载升级/">excel下载升级</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/01/02/excel下载/">excel下载</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/kafka学习/">kafka学习</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/kafka安装/">Kafka安装</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/12/27/Thrift/">Thrift学习</a></li></ul>
+
+
+
+
+    <script>
+        
+    </script>
 </div>
       <footer id="footer">
     <div class="outer">
@@ -1163,10 +524,6 @@
         })
     </script>
 
-
-    
-
-     
 
 
 
